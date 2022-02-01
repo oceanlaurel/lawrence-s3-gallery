@@ -3,21 +3,82 @@
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport"
-	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+<!-- <meta name="viewport" -->
+<!-- 	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" /> -->
 
 <link href="https://fonts.googleapis.com/css?family=Lobster"
 	rel="stylesheet" />
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous" />
+
+<link rel="stylesheet" href="./../bootstrap-5.1.3-dist/css/bootstrap.min.css" />
+
 <link rel="stylesheet" href="demo/css/style.css" />
 <link rel="stylesheet" href="dist/css/glightbox.css" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-<title>GLightbox | A touchable pure Javascript lightbox</title>
+<title>Lawrence S3 Gallery | My Sweet Memories</title>
+
+<script src="./../config/video-key-list.json"></script>
+<script src="./../config/photo-key-list.json"></script>
+<script src="./../common/jquery-3.6.0.min.js"></script>
+<script src="./../paginate-large-list-paging/paging.js"></script>
+<link rel="stylesheet"
+	href="./../paginate-large-list-paging/PagingStyle.css" />
+
+<script src="./../pagination-dynamic-data/src/js/jqpaginator.js"></script>
+<link rel="stylesheet" href="./../pagination-dynamic-data/src/css/styles.css" type="text/css" />
+<link rel="stylesheet" href="./../pagination-dynamic-data/src/css/jqpaginator.css" type="text/css" />
+
+<script>
+var isDebug = true;
+if (isDebug) {
+	console.log("Total video S3 Key: " + videoS3Keylist.file_list.length);
+	console.log("Total photo S3 Key: " + photoS3Keylist.file_list.length);
+}
+
+
+// const txt = '{"name":"John", "age":30, "city":"New York"}'
+// 	const txt2 = '{"file_list":[{"item_number" : 1,"object_summary" : {"bucket_name" : "lawrencewong-gallery","key" : "Video/"}},{"item_number" : 2,"object_summary" : {"bucket_name" : "lawrencewong-gallery","key" : "Video/Friend or Other/"}}]}'
+// 	const obj = JSON.parse(txt2);
+
+// 	document.getElementById("demo").innerHTML = obj.file_list[0].item_number 
+// 	+ ", " + obj.file_list[0].object_summary.bucket_name + ", " + obj.file_list[0].object_summary.key
+// 	+ "<BR>"
+// 	+ obj.file_list[1].item_number 
+// 	+ ", " + obj.file_list[1].object_summary.bucket_name + ", " + obj.file_list[1].object_summary.key
+// 	+ "<BR>Length: " + obj.file_list.length;
+
+// 1, lawrencewong-gallery, Video/
+// 2, lawrencewong-gallery, Video/Friend or Other/
+// Length: 2
+
+
+////////////////////////////////////
+// function cap() {
+// var canvas = document.getElementById('canvas');
+// var video = document.getElementById('video');
+// canvas.width = video.videoWidth;
+// canvas.height = video.videoHeight;
+// canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight); // for drawing the video element on the canvas
+ 
+// /** Code to merge image **/
+
+// const playImage = new Image();
+// playImage.src = 'path to image asset';
+// playImage.onload = () => {
+// const startX = (video.videoWidth / 2) - (playImage.width / 2);
+// const startY = (video.videoHeight / 2) - (playImage.height / 2);
+// canvas.getContext('2d').drawImage(playImage, startX, startY, playImage.width, playImage.height);
+// canvas.toBlob() = (blob) => { // Canvas element gives a callback to listen to the event after blob is prepared from canvas
+// const img = new Image();
+// img.src = window.URL.createObjectUrl(blob); // window object with static function of URL class that can be used to get URL from blob
+// };
+// };
+// }
+
+</script>
+
+
 </head>
 
 <body>
@@ -26,7 +87,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="header-inner">
-						<a href="#" class="logo" style="font-family: 'Lobster', cursive">GLightbox</a>
+						<a href="#" class="logo" style="font-family: 'Lobster', cursive">Lawrence
+							S3 Gallery</a>
 						<ul class="d-none d-md-block">
 							<li><a href="#examples">EXAMPLES</a></li>
 							<li><a href="#specifications">INFO</a></li>
@@ -66,6 +128,513 @@
 			</div>
 		</div>
 	</div>
+
+
+	<!-- Pagination - [[ -->
+	<script type="text/javascript">
+      $(function() {
+        $("#listPage").JPaging({
+           pageSize: 7
+//        	visiblePageSize: 7
+        });
+      });
+      
+      var contentpoc2 = '<section id="examples" class="section">'+
+      '		<div class="container">'+
+      '			<div class="row">'+
+      '				<div class="col-md-12">'+
+      '					<h3>'+
+      '						<i class="fa fa-camera-retro heading-icon" aria-hidden="true"></i>'+
+      '						Simple Image Gallery 2'+
+      '					</h3>'+
+      ''+
+      '					<ul class="box-container three-cols">'+
+      '						<li class="box">'+
+      '							<div class="inner">'+
+      '								<a href="demo/img/large/gm1.jpg" class="glightbox"> <img'+
+      '									src="demo/img/small/gm1.jpg" alt="image" />'+
+      '								</a>'+
+      '							</div>'+
+      '						</li>'+
+      '						<li class="box">'+
+      '							<div class="inner">'+
+      '								<a href="demo/img/large/gm2.jpg" class="glightbox"> <img'+
+      '									src="demo/img/small/gm2.jpg" alt="image" />'+
+      '								</a>'+
+      '							</div>'+
+      '						</li>'+
+      '						<li class="box">'+
+      '							<div class="inner">'+
+      '								<a href="demo/img/large/gm3.jpg" class="glightbox"> <img'+
+      '									src="demo/img/small/gm3.jpg" alt="image" />'+
+      '								</a>'+
+      '							</div>'+
+      '						</li>'+
+      '						<li class="box">'+
+      '							<div class="inner">'+
+      '								<a href="demo/img/large/gm4.jpg" class="glightbox"> <img'+
+      '									src="demo/img/small/gm4.jpg" alt="image" />'+
+      '								</a>'+
+      '							</div>'+
+      '						</li>'+
+      '						<li class="box">'+
+      '							<div class="inner">'+
+      '								<a href="demo/img/large/gm5.jpg" class="glightbox"> <img'+
+      '									src="demo/img/small/gm5.jpg" alt="image" />'+
+      '								</a>'+
+      '							</div>'+
+      '						</li>'+
+      '						<li class="box">'+
+      '							<div class="inner">'+
+      '								<a href="demo/img/large/gm6.jpg" class="glightbox"> <img'+
+      '									src="demo/img/small/gm6.jpg" alt="image" />'+
+      '								</a>'+
+      '							</div>'+
+      '						</li>'+
+      '						<li class="box">'+
+      '							<div class="inner">'+
+      '								<a'+
+      '									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"'+
+      '									class="glightbox"> <img'+
+      '									src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"'+
+      '									alt="image" />'+
+      '								</a>'+
+      '							</div>'+
+      '						</li>'+
+      '					</ul>'+
+      '				</div>'+
+      '			</div>'+
+      '		</div>'+
+      '	</section>';
+      
+      
+      $( document ).ready(function() {
+    	  $('#poc01').html(contentpoc2);
+    	  $('#poc02').html(contentpoc2);
+    	});
+      
+    </script>
+	<style>
+body {
+	font-family: 'Lobster';
+	background-color: #fafafa;
+}
+
+h1 {
+	text-align: center;
+}
+</style>
+	<ul id="listPage">
+		<li>1. li content<div id="poc01"></div></li>
+		<li>2. li content</li>
+		<li>3. li content</li>
+		<li>4. li content</li>
+		<li>5. li content</li>
+		<li>6. li content</li>
+		<li>7. li content</li>
+		<li>8. li content</li>
+		<li>9. li content</li>
+		<li>10. li content</li>
+		<li>11. li content</li>
+		<li>12. li content</li>
+		<li>13. li content</li>
+		<li>14. li content</li>
+		<li>15. li content</li>
+		<li>16. li content</li>
+		<li>17. li content</li>
+		<li>18. li content</li>
+		<li>19. li content</li>
+		<li>20. li content</li>
+		<li>21. li content</li>
+		<li>22. li content</li>
+		<li>23. li content</li>
+		<li>24. li content</li>
+		<li>25. li content</li>
+		<li>26. li content</li>
+		<li>27. li content</li>
+		<li>28. li content</li>
+		<li>29. li content</li>
+		<li>30. li content</li>
+		<li>31. li content</li>
+		<li>32. li content</li>
+		<li>33. li content</li>
+		<li>34. li content</li>
+		<li>35. li content</li>
+		<li>36. li content</li>
+		<li>37. li content</li>
+		<li>38. li content</li>
+		<li>39. li content</li>
+		<li>40. li content</li>
+		<li>41. li content</li>
+		<li>42. li content</li>
+		<li>43. li content</li>
+		<li>44. li content</li>
+		<li>45. li content</li>
+		<li>46. li content</li>
+		<li>47. li content</li>
+		<li>48. li content</li>
+		<li>49. li content</li>
+		<li>50. li content</li>
+		<li>51. li content</li>
+		<li>52. li content</li>
+		<li>53. li content</li>
+		<li>54. li content</li>
+		<li>55. li content</li>
+		<li>56. li content</li>
+		<li>57. li content</li>
+		<li>58. li content</li>
+		<li>59. li content</li>
+		<li>60. li content</li>
+		<li>61. li content</li>
+		<li>62. li content</li>
+		<li>63. li content</li>
+		<li>64. li content</li>
+		<li>65. li content</li>
+		<li>66. li content</li>
+		<li>67. li content</li>
+		<li>68. li content</li>
+		<li>69. li content</li>
+	</ul>
+
+	<!-- ]] - Pagination -->
+
+	<!-- Pagination-2 - [[ -->
+	<script type="text/javascript">
+            $(function() {
+                var itemsPerPage = 3;
+
+                function createData() {
+                    var arr = [];
+                    var i = 0;
+
+                    while (i < 1000) {
+                        arr.push("Item: " + i.toString());
+                        
+                        var contentpoc = '<section id="examples" class="section">'+
+                        '		<div class="container">'+
+                        '			<div class="row">'+
+                        '				<div class="col-md-12">'+
+                        '					<h3>'+
+                        '						<i class="fa fa-camera-retro heading-icon" aria-hidden="true"></i>'+
+                        '						Simple Image Gallery'+
+                        '					</h3>'+
+                        ''+
+                        '					<ul class="box-container three-cols">'+
+                        '						<li class="box">'+
+                        '							<div class="inner">'+
+                        '								<a href="demo/img/large/gm1.jpg" class="glightbox"> <img'+
+                        '									src="demo/img/small/gm1.jpg" alt="image" />'+
+                        '								</a>'+
+                        '							</div>'+
+                        '						</li>'+
+                        '						<li class="box">'+
+                        '							<div class="inner">'+
+                        '								<a href="demo/img/large/gm2.jpg" class="glightbox"> <img'+
+                        '									src="demo/img/small/gm2.jpg" alt="image" />'+
+                        '								</a>'+
+                        '							</div>'+
+                        '						</li>'+
+                        '						<li class="box">'+
+                        '							<div class="inner">'+
+                        '								<a href="demo/img/large/gm3.jpg" class="glightbox"> <img'+
+                        '									src="demo/img/small/gm3.jpg" alt="image" />'+
+                        '								</a>'+
+                        '							</div>'+
+                        '						</li>'+
+                        '						<li class="box">'+
+                        '							<div class="inner">'+
+                        '								<a href="demo/img/large/gm4.jpg" class="glightbox"> <img'+
+                        '									src="demo/img/small/gm4.jpg" alt="image" />'+
+                        '								</a>'+
+                        '							</div>'+
+                        '						</li>'+
+                        '						<li class="box">'+
+                        '							<div class="inner">'+
+                        '								<a href="demo/img/large/gm5.jpg" class="glightbox"> <img'+
+                        '									src="demo/img/small/gm5.jpg" alt="image" />'+
+                        '								</a>'+
+                        '							</div>'+
+                        '						</li>'+
+                        '						<li class="box">'+
+                        '							<div class="inner">'+
+                        '								<a href="demo/img/large/gm6.jpg" class="glightbox"> <img'+
+                        '									src="demo/img/small/gm6.jpg" alt="image" />'+
+                        '								</a>'+
+                        '							</div>'+
+                        '						</li>'+
+                        '						<li class="box">'+
+                        '							<div class="inner">'+
+                        '								<a'+
+                        '									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"'+
+                        '									class="glightbox"> <img'+
+                        '									src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"'+
+                        '									alt="image" />'+
+                        '								</a>'+
+                        '							</div>'+
+                        '						</li>'+
+                        '					</ul>'+
+                        '				</div>'+
+                        '			</div>'+
+                        '		</div>'+
+                        '	</section>';
+                        	
+
+                        //arr.push(contentpoc);
+						
+                        i++;
+                    }
+
+                    return arr;
+                }
+                function dataFunc(done, page) {
+                    var data = [];
+
+                    while (data.length < itemsPerPage) {
+                        var num = Math.floor(Math.random() * 100);
+                        data.push(num);
+                    }
+
+                    var handler = function() {
+                        done(data, 100);
+                    };
+                    setTimeout(handler, 1000);
+                }
+                function renderer(data) {
+                    $('#main').empty();
+
+                    $.each(data, function(i, v) {
+                        $('#main').append("<p>" + v + "</p>");
+                    });
+                };
+
+                $("#create").on('click', function() {
+                    $('#target').jqpaginator({
+                        showButtons: true,
+                        showInput: true,
+                        showNumbers: true,
+                        numberMargin: 1,
+                        itemsPerPage: itemsPerPage,
+                        data: createData(),
+                        //data: dataFunc,
+                        render: renderer,
+                    });
+                });
+                $("#getpage").on('click', function() {
+                    alert($('#target').jqpaginator('getPage'));
+                });
+                $("#reload").on('click', function() {
+                    $('#target').jqpaginator('reload');
+                });
+                $("#destroy").on('click', function() {
+                    $('#target').jqpaginator('destroy');
+                });
+                $("#goto").on('click', function() {
+                    $('#target').jqpaginator('goto', 3);
+                });
+            });
+        </script>
+	<h1>jqpaginator - jQuery Pagination element plugin.</h1>
+
+	<div>
+		<button id="create">Create</button>
+		<button id="getpage">Get Page</button>
+		<button id="reload">Reload</button>
+		<button id="destroy">Destroy</button>
+		<button id="goto">Go to 3</button>
+	</div>
+
+	<div id="main"></div>
+
+	<div id="target"></div>
+
+
+	<!-- ]] - Pagination -->
+
+
+	<!-- tabbis.js - [[ -->
+
+	<div id="custom-tag"></div>
+
+
+	<script>
+// document.addEventListener('DOMContentLoaded', doSomething, false);
+
+// function doSomething () {
+	var videopoc = '<section class="section">'+
+		'		<div class="container">'+
+		'			<div class="row">'+
+		'				<div class="col-md-12">'+
+		'					<h3>'+
+		'						<i class="fa fa-video-camera heading-icon" aria-hidden="true"></i>'+
+		'						Videos Gallery 2'+
+		'					</h3>'+
+		'					<p>'+
+		'						You can add videos with optional autoplay for <strong>Vimeo</strong>'+
+		'						, <strong>Youtube</strong> and <strong>self hosted videos</strong>'+
+		'						. You can specify a default width for the videos or set different'+
+		'						widths to each video in your gallery. The videos are 100%'+
+		'						responsive and will play correctly on mobile devices.'+
+		'					</p>'+
+		''+
+		'					<ul class="box-container three-cols">'+
+		'						<li class="box">'+
+		'							<div class="inner">'+
+		'								<a href="https://vimeo.com/115041822" class="glightbox3"> <img'+
+		'									src="demo/img/small/gm10.jpg" alt="image" />'+
+		'								</a>'+
+		'							</div>'+
+		'						</li>'+
+		'						<li class="box">'+
+		'							<div class="inner">'+
+		'								<a href="https://www.youtube-nocookie.com/embed/Ga6RYejo6Hk"'+
+		'									class="glightbox3"> <img src="demo/img/small/gm11.jpg"'+
+		'									alt="image" />'+
+		'								</a>'+
+		'							</div>'+
+		'						</li>'+
+		'						<li class="box">'+
+		'							<div class="inner">'+
+		'								<a href="./demo/pexels-video-1550080.mp4" class="glightbox3">'+
+		'									<img src="demo/img/small/gm12.jpg" alt="image" />'+
+		'								</a>'+
+		'							</div>'+
+		'						</li>'+
+		'						<li class="box">'+
+		'							<div class="inner">'+
+		'								<a'+
+		'									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"'+
+		'									class="glightbox3"> <video width="300" height="200"'+
+		'										id="video"'+
+		'										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"'+
+		'										type="video/mp4" controls></video>'+
+		'									<source'+
+		'										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"'+
+		'										type="video/mp4"> </video>'+
+		'								</a>'+
+		'							</div>'+
+		'						</li>'+
+		'						<li class="box">'+
+		'							<div class="inner">'+
+		'								<a'+
+		'									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
+		'									class="glightbox3"> <video width="300" height="200"'+
+		'										poster="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
+		'										controls>'+
+		'										<source'+
+		'											src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
+		'											type="video/mp4">'+
+		'									</video>'+
+		'								</a>'+
+		'							</div>'+
+		'						</li>'+
+		'						<li class="box">'+
+		'							<div class="inner">'+
+		'								<a'+
+		'									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
+		'									class="glightbox3"> <video width="300" height="200"'+
+		'										id="video"'+
+		'										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
+		'										type="video/mp4" controls></video>'+
+		'									<source'+
+		'										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
+		'										type="video/mp4"> </video>'+
+		'								</a>'+
+		'							</div>'+
+		'						</li>'+
+		'					</ul>'+
+		'				</div>'+
+		'			</div>'+
+		'		</div>'+
+		'	</section>';
+			
+
+	
+
+	
+	
+	var tabbisHtml = '<div data-tabs>' 
+		+ '<button>Tab1</button>'
+		+ '<button>Tab2</button>'
+		+ '<button id="tab3">Tab3</button>'
+		+ '</div>'
+		+ '<div data-panes>'
+	+ '<div>Pane1</div>'
+	+ '<div>'
+		+ '<div data-tabs>'
+		+ '<button>Tab4</button>'
+		+ '<button data-active>Tab5</button>'
+		+ '</div>'
+
+		+ '<div data-panes>'
+		+ '<div>Pane4</div>'
+		+ '<div>'
+		+ '<div data-tabs>'
+		+ '<button>Tab6</button>'
+		+ '<button data-active>Tab7</button>'
+		+ '</div>'
+
+		+ '<div data-panes>'
+		+ '<div>Pane6'+videopoc+'</div>'
+		+ '<div>Pane7'+contentpoc2+'</div>'
+		+ '</div>'
+		+ '</div>'
+		+ '</div>'
+		+ '</div>'
+		+ '<div>Pane3<div id="poc02"></div></div>'
+		+ '</div>';
+	
+	
+	 $("#tab3").on('click', function() {
+		 $('#poc02').html(contentpoc2);	
+     });
+		
+    if (true){
+        $('#custom-tag').html(tabbisHtml);
+    } else {
+        $('#custom-tag').html('DifferentHtmlString');
+    }
+// }
+</script>
+
+	<!-- 	<div data-tabs> -->
+	<!-- 		<button>Tab1</button> -->
+	<!-- 		<button>Tab2</button> -->
+	<!-- 		<button>Tab3</button> -->
+	<!-- 	</div> -->
+
+	<!-- 	<div data-panes> -->
+	<!-- 		<div>Pane1</div> -->
+	<!-- 		<div> -->
+	<!-- 			<div data-tabs> -->
+	<!-- 				<button>Tab4</button> -->
+	<!-- 				<button data-active>Tab5</button> -->
+	<!-- 			</div> -->
+
+	<!-- 			<div data-panes> -->
+	<!-- 				<div>Pane4</div> -->
+	<!-- 				<div> -->
+	<!-- 					<div data-tabs> -->
+	<!-- 						<button>Tab6</button> -->
+	<!-- 						<button data-active>Tab7</button> -->
+	<!-- 					</div> -->
+
+	<!-- 					<div data-panes> -->
+	<!-- 						<div>Pane6</div> -->
+	<!-- 						<div>Pane7</div> -->
+	<!-- 					</div> -->
+	<!-- 				</div> -->
+	<!-- 			</div> -->
+	<!-- 		</div> -->
+	<!-- 		<div>Pane3</div> -->
+	<!-- 	</div> -->
+
+	<script src="../tabbis.js/assets/js/dist/tabbis.es6.js"></script>
+	<script>
+      tabbis({
+        memory: true
+      });
+    </script>
+	<!-- ]] - tabbis.js -->
 
 	<!-- Simple images example -->
 	<section id="examples" class="section">
@@ -117,6 +686,16 @@
 							<div class="inner">
 								<a href="demo/img/large/gm6.jpg" class="glightbox"> <img
 									src="demo/img/small/gm6.jpg" alt="image" />
+								</a>
+							</div>
+						</li>
+						<li class="box">
+							<div class="inner">
+								<a
+									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
+									class="glightbox"> <img
+									src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
+									alt="image" />
 								</a>
 							</div>
 						</li>
@@ -204,6 +783,22 @@
 								</div>
 							</div>
 						</li>
+						<li class="box">
+							<div class="inner">
+								<a
+									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
+									class="glightbox2"
+									data-glightbox="title: Description Rightt; description: .custom-desc2; descPosition: right;">
+									<img
+									src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
+									alt="image" />
+								</a>
+								<div class="glightbox-desc custom-desc2">
+									<p>https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg</p>
+									<p>My Sweet Family-2021 Featured-001.jpg</p>
+								</div>
+							</div>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -250,11 +845,95 @@
 								</a>
 							</div>
 						</li>
+						<li class="box">
+							<div class="inner">
+								<a
+									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"
+									class="glightbox3"> <video width="300" height="200"
+										id="video"
+										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"
+										type="video/mp4" controls></video>
+									<source
+										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"
+										type="video/mp4"> </video>
+								</a>
+							</div>
+						</li>
+						<li class="box">
+							<div class="inner">
+								<a
+									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
+									class="glightbox3"> <video width="300" height="200"
+										poster="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
+										controls>
+										<source
+											src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
+											type="video/mp4">
+									</video>
+								</a>
+							</div>
+						</li>
+						<li class="box">
+							<div class="inner">
+								<a
+									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
+									class="glightbox3"> <video width="300" height="200"
+										id="video"
+										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
+										type="video/mp4" controls></video>
+									<source
+										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
+										type="video/mp4"> </video>
+								</a>
+							</div>
+						</li>
+						<!-- 						<li class="box"> -->
+						<!-- 							<div class="inner"> -->
+						<!-- 								<a -->
+						<!-- 									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-01.mp4" -->
+						<!-- 									class="glightbox3"> 									<img src="demo/img/small/gm12.jpg" alt="image" /> -->
+						<!-- 									<video id="videoId" autoplay loop controls width="470" -->
+						<!-- 										height="255"> -->
+						<!-- 										<source -->
+						<!-- 											src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-01.mp4" -->
+						<!-- 											type="video/mp4"> -->
+						<!-- 										Your browser does not support the video tag. -->
+						<!-- 									</video> -->
+						<!-- 								</a> -->
+						<!-- 							</div> -->
+						<!-- 						</li> -->
 					</ul>
 				</div>
 			</div>
 		</div>
 	</section>
+
+	<!-- 	<video width="300" height="200" id="video" -->
+	<!-- 		src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4" -->
+	<!-- 		type="video/mp4" controls></video> -->
+	<!-- 	<button onclick="cap()">Capture</button> -->
+	<!-- 	<canvas id="canvas" style="overflow: auto"></canvas> -->
+
+
+
+	<!-- 	<video id="videoId" autoplay loop controls> -->
+	<!-- 		<source -->
+	<!-- 			src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-01.mp4" -->
+	<!-- 			type="video/mp4"> -->
+	<!-- 		Your browser does not support the video tag. -->
+	<!-- 	</video> -->
+
+	<canvas id="canvasId"></canvas>
+	<!-- 	<img id="imgId" src="" /> -->
+
+	<!-- 	<video width="470" height="255" poster="placeholder.png" controls> -->
+	<!-- 		<source src="video.mp4" type="video/mp4"> -->
+	<!-- 		<source src="video.ogg" type="video/ogg"> -->
+	<!-- 		<source src="video.webm" type="video/webm"> -->
+	<!-- 		<object data="video.mp4" width="470" height="255"> -->
+	<!-- 			<embed src="video.swf" width="470" height="255"> -->
+	<!-- 		</object> -->
+	<!-- 	</video> -->
 
 	<!-- Iframes and inline example -->
 	<section class="section pair">
