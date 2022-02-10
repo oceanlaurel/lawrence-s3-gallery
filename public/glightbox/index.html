@@ -6,79 +6,50 @@
 <!-- <meta name="viewport" -->
 <!-- 	content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" /> -->
 
-<link href="https://fonts.googleapis.com/css?family=Lobster"
-	rel="stylesheet" />
-
-<link rel="stylesheet" href="./../bootstrap-5.1.3-dist/css/bootstrap.min.css" />
-
+<!-- glightbox - [[ -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Lobster" />
+<link rel="stylesheet"
+	href="./../bootstrap-5.1.3-dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="demo/css/style.css" />
 <link rel="stylesheet" href="dist/css/glightbox.css" />
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- ]] - glightbox -->
 
 <title>Lawrence S3 Gallery | My Sweet Memories</title>
 
+<!-- Key list by GenerateGalleryPathList Lambda - [[ -->
 <script src="./../config/video-key-list.json"></script>
 <script src="./../config/photo-key-list.json"></script>
-<script src="./../common/jquery-3.6.0.min.js"></script>
-<script src="./../paginate-large-list-paging/paging.js"></script>
-<link rel="stylesheet"
-	href="./../paginate-large-list-paging/PagingStyle.css" />
+<!-- ]] -->
 
-<script src="./../pagination-dynamic-data/src/js/jqpaginator.js"></script>
-<link rel="stylesheet" href="./../pagination-dynamic-data/src/css/styles.css" type="text/css" />
-<link rel="stylesheet" href="./../pagination-dynamic-data/src/css/jqpaginator.css" type="text/css" />
+<script src="./../common/jquery-3.6.0.min.js"></script>
 
 <script>
-var isDebug = true;
-if (isDebug) {
-	console.log("Total video S3 Key: " + videoS3Keylist.file_list.length);
-	console.log("Total photo S3 Key: " + photoS3Keylist.file_list.length);
-}
-
-
-// const txt = '{"name":"John", "age":30, "city":"New York"}'
-// 	const txt2 = '{"file_list":[{"item_number" : 1,"object_summary" : {"bucket_name" : "lawrencewong-gallery","key" : "Video/"}},{"item_number" : 2,"object_summary" : {"bucket_name" : "lawrencewong-gallery","key" : "Video/Friend or Other/"}}]}'
-// 	const obj = JSON.parse(txt2);
-
-// 	document.getElementById("demo").innerHTML = obj.file_list[0].item_number 
-// 	+ ", " + obj.file_list[0].object_summary.bucket_name + ", " + obj.file_list[0].object_summary.key
-// 	+ "<BR>"
-// 	+ obj.file_list[1].item_number 
-// 	+ ", " + obj.file_list[1].object_summary.bucket_name + ", " + obj.file_list[1].object_summary.key
-// 	+ "<BR>Length: " + obj.file_list.length;
-
-// 1, lawrencewong-gallery, Video/
-// 2, lawrencewong-gallery, Video/Friend or Other/
-// Length: 2
-
-
-////////////////////////////////////
-// function cap() {
-// var canvas = document.getElementById('canvas');
-// var video = document.getElementById('video');
-// canvas.width = video.videoWidth;
-// canvas.height = video.videoHeight;
-// canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight); // for drawing the video element on the canvas
- 
-// /** Code to merge image **/
-
-// const playImage = new Image();
-// playImage.src = 'path to image asset';
-// playImage.onload = () => {
-// const startX = (video.videoWidth / 2) - (playImage.width / 2);
-// const startY = (video.videoHeight / 2) - (playImage.height / 2);
-// canvas.getContext('2d').drawImage(playImage, startX, startY, playImage.width, playImage.height);
-// canvas.toBlob() = (blob) => { // Canvas element gives a callback to listen to the event after blob is prepared from canvas
-// const img = new Image();
-// img.src = window.URL.createObjectUrl(blob); // window object with static function of URL class that can be used to get URL from blob
-// };
-// };
-// }
-
-</script>
-
-
+	var isDebug = true;
+	if (isDebug) {
+		console.log("Total video key in S3 bucket: " + videoS3Keylist.file_list.length);
+		console.log("Total photo key in S3 bucket" + photoS3Keylist.file_list.length);
+	}
+	
+	
+	// const txt = '{"name":"John", "age":30, "city":"New York"}'
+	// 	const txt2 = '{"file_list":[{"item_number" : 1,"object_summary" : {"bucket_name" : "lawrencewong-gallery","key" : "Video/"}},{"item_number" : 2,"object_summary" : {"bucket_name" : "lawrencewong-gallery","key" : "Video/Friend or Other/"}}]}'
+	// 	const obj = JSON.parse(txt2);
+	
+	// 	document.getElementById("demo").innerHTML = obj.file_list[0].item_number 
+	// 	+ ", " + obj.file_list[0].object_summary.bucket_name + ", " + obj.file_list[0].object_summary.key
+	// 	+ "<BR>"
+	// 	+ obj.file_list[1].item_number 
+	// 	+ ", " + obj.file_list[1].object_summary.bucket_name + ", " + obj.file_list[1].object_summary.key
+	// 	+ "<BR>Length: " + obj.file_list.length;
+	
+	// 1, lawrencewong-gallery, Video/
+	// 2, lawrencewong-gallery, Video/Friend or Other/
+	// Length: 2
+	
+	</script>
 </head>
 
 <body>
@@ -87,14 +58,18 @@ if (isDebug) {
 			<div class="row">
 				<div class="col-md-12">
 					<div class="header-inner">
-						<a href="#" class="logo" style="font-family: 'Lobster', cursive">Lawrence
-							S3 Gallery</a>
+						<a href="#" class="logo"
+							style="font-family: 'Lobster', cursive; color: white">Lawrence
+							Gallery</a>
 						<ul class="d-none d-md-block">
-							<li><a href="#examples">EXAMPLES</a></li>
-							<li><a href="#specifications">INFO</a></li>
-							<li><a href="#license">LICENSE</a></li>
-							<li><a
-								href="https://github.com/biati-digital/glightbox/releases/download/3.1.0/glightbox-master.zip">DOWNLOAD</a></li>
+							<li><a href="#photos"
+								style="color: rgba(255, 255, 255, 0.9);">PHOTOS</a></li>
+							<li><a href="#videos"
+								style="color: rgba(255, 255, 255, 0.9);">VIDEOS</a></li>
+							<li><a href="#specifications"
+								style="color: rgba(255, 255, 255, 0.9);">INFO</a></li>
+							<li><a href="#copyright"
+								style="color: rgba(255, 255, 255, 0.9);">COPYRIGHT</a></li>
 						</ul>
 					</div>
 				</div>
@@ -107,10 +82,15 @@ if (isDebug) {
 			<div class="row">
 				<div class="col-md-12">
 					<div class="lead">
-						<h1 style="font-family: 'Lobster', cursive">GLightbox.</h1>
-						<p class="tagline">
-							Code name <strong>"Gie"</strong> A touchable Pure Javascript <br />
-							lightbox with mobile and video support.
+						<h1
+							style="font-family: 'Lobster', cursive; color: rgba(255, 255, 255, 0.5);">Family
+							Gallery</h1>
+						<p class="tagline"
+							style="font-family: 'Lobster', cursive; color: rgba(255, 255, 255, 0.5);">
+							Lawrence <strong class="tagline"
+								style="font-family: 'Lobster', cursive; color: rgba(199, 182, 250, 0.6);">"Family
+								Gallery"</strong> A touchable cloud <br /> lightbox with mobile and
+							video support.
 						</p>
 
 						<div class="download">
@@ -130,16 +110,15 @@ if (isDebug) {
 	</div>
 
 
-	<!-- Pagination - [[ -->
-	<script type="text/javascript">
-      $(function() {
-        $("#listPage").JPaging({
-           pageSize: 7
-//        	visiblePageSize: 7
-        });
-      });
-      
-      var contentpoc2 = '<section id="examples" class="section">'+
+	<!-- tabbis.js - [[ -->
+
+	<div id="custom-tag"></div>
+
+
+	<script>
+// document.addEventListener('DOMContentLoaded', doSomething, false);
+
+var contentpoc2 = '<section id="examples" class="section">'+
       '		<div class="container">'+
       '			<div class="row">'+
       '				<div class="col-md-12">'+
@@ -206,258 +185,6 @@ if (isDebug) {
       '			</div>'+
       '		</div>'+
       '	</section>';
-      
-      
-      $( document ).ready(function() {
-    	  $('#poc01').html(contentpoc2);
-    	  $('#poc02').html(contentpoc2);
-    	});
-      
-    </script>
-	<style>
-body {
-	font-family: 'Lobster';
-	background-color: #fafafa;
-}
-
-h1 {
-	text-align: center;
-}
-</style>
-	<ul id="listPage">
-		<li>1. li content<div id="poc01"></div></li>
-		<li>2. li content</li>
-		<li>3. li content</li>
-		<li>4. li content</li>
-		<li>5. li content</li>
-		<li>6. li content</li>
-		<li>7. li content</li>
-		<li>8. li content</li>
-		<li>9. li content</li>
-		<li>10. li content</li>
-		<li>11. li content</li>
-		<li>12. li content</li>
-		<li>13. li content</li>
-		<li>14. li content</li>
-		<li>15. li content</li>
-		<li>16. li content</li>
-		<li>17. li content</li>
-		<li>18. li content</li>
-		<li>19. li content</li>
-		<li>20. li content</li>
-		<li>21. li content</li>
-		<li>22. li content</li>
-		<li>23. li content</li>
-		<li>24. li content</li>
-		<li>25. li content</li>
-		<li>26. li content</li>
-		<li>27. li content</li>
-		<li>28. li content</li>
-		<li>29. li content</li>
-		<li>30. li content</li>
-		<li>31. li content</li>
-		<li>32. li content</li>
-		<li>33. li content</li>
-		<li>34. li content</li>
-		<li>35. li content</li>
-		<li>36. li content</li>
-		<li>37. li content</li>
-		<li>38. li content</li>
-		<li>39. li content</li>
-		<li>40. li content</li>
-		<li>41. li content</li>
-		<li>42. li content</li>
-		<li>43. li content</li>
-		<li>44. li content</li>
-		<li>45. li content</li>
-		<li>46. li content</li>
-		<li>47. li content</li>
-		<li>48. li content</li>
-		<li>49. li content</li>
-		<li>50. li content</li>
-		<li>51. li content</li>
-		<li>52. li content</li>
-		<li>53. li content</li>
-		<li>54. li content</li>
-		<li>55. li content</li>
-		<li>56. li content</li>
-		<li>57. li content</li>
-		<li>58. li content</li>
-		<li>59. li content</li>
-		<li>60. li content</li>
-		<li>61. li content</li>
-		<li>62. li content</li>
-		<li>63. li content</li>
-		<li>64. li content</li>
-		<li>65. li content</li>
-		<li>66. li content</li>
-		<li>67. li content</li>
-		<li>68. li content</li>
-		<li>69. li content</li>
-	</ul>
-
-	<!-- ]] - Pagination -->
-
-	<!-- Pagination-2 - [[ -->
-	<script type="text/javascript">
-            $(function() {
-                var itemsPerPage = 3;
-
-                function createData() {
-                    var arr = [];
-                    var i = 0;
-
-                    while (i < 1000) {
-                        arr.push("Item: " + i.toString());
-                        
-                        var contentpoc = '<section id="examples" class="section">'+
-                        '		<div class="container">'+
-                        '			<div class="row">'+
-                        '				<div class="col-md-12">'+
-                        '					<h3>'+
-                        '						<i class="fa fa-camera-retro heading-icon" aria-hidden="true"></i>'+
-                        '						Simple Image Gallery'+
-                        '					</h3>'+
-                        ''+
-                        '					<ul class="box-container three-cols">'+
-                        '						<li class="box">'+
-                        '							<div class="inner">'+
-                        '								<a href="demo/img/large/gm1.jpg" class="glightbox"> <img'+
-                        '									src="demo/img/small/gm1.jpg" alt="image" />'+
-                        '								</a>'+
-                        '							</div>'+
-                        '						</li>'+
-                        '						<li class="box">'+
-                        '							<div class="inner">'+
-                        '								<a href="demo/img/large/gm2.jpg" class="glightbox"> <img'+
-                        '									src="demo/img/small/gm2.jpg" alt="image" />'+
-                        '								</a>'+
-                        '							</div>'+
-                        '						</li>'+
-                        '						<li class="box">'+
-                        '							<div class="inner">'+
-                        '								<a href="demo/img/large/gm3.jpg" class="glightbox"> <img'+
-                        '									src="demo/img/small/gm3.jpg" alt="image" />'+
-                        '								</a>'+
-                        '							</div>'+
-                        '						</li>'+
-                        '						<li class="box">'+
-                        '							<div class="inner">'+
-                        '								<a href="demo/img/large/gm4.jpg" class="glightbox"> <img'+
-                        '									src="demo/img/small/gm4.jpg" alt="image" />'+
-                        '								</a>'+
-                        '							</div>'+
-                        '						</li>'+
-                        '						<li class="box">'+
-                        '							<div class="inner">'+
-                        '								<a href="demo/img/large/gm5.jpg" class="glightbox"> <img'+
-                        '									src="demo/img/small/gm5.jpg" alt="image" />'+
-                        '								</a>'+
-                        '							</div>'+
-                        '						</li>'+
-                        '						<li class="box">'+
-                        '							<div class="inner">'+
-                        '								<a href="demo/img/large/gm6.jpg" class="glightbox"> <img'+
-                        '									src="demo/img/small/gm6.jpg" alt="image" />'+
-                        '								</a>'+
-                        '							</div>'+
-                        '						</li>'+
-                        '						<li class="box">'+
-                        '							<div class="inner">'+
-                        '								<a'+
-                        '									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"'+
-                        '									class="glightbox"> <img'+
-                        '									src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"'+
-                        '									alt="image" />'+
-                        '								</a>'+
-                        '							</div>'+
-                        '						</li>'+
-                        '					</ul>'+
-                        '				</div>'+
-                        '			</div>'+
-                        '		</div>'+
-                        '	</section>';
-                        	
-
-                        //arr.push(contentpoc);
-						
-                        i++;
-                    }
-
-                    return arr;
-                }
-                function dataFunc(done, page) {
-                    var data = [];
-
-                    while (data.length < itemsPerPage) {
-                        var num = Math.floor(Math.random() * 100);
-                        data.push(num);
-                    }
-
-                    var handler = function() {
-                        done(data, 100);
-                    };
-                    setTimeout(handler, 1000);
-                }
-                function renderer(data) {
-                    $('#main').empty();
-
-                    $.each(data, function(i, v) {
-                        $('#main').append("<p>" + v + "</p>");
-                    });
-                };
-
-                $("#create").on('click', function() {
-                    $('#target').jqpaginator({
-                        showButtons: true,
-                        showInput: true,
-                        showNumbers: true,
-                        numberMargin: 1,
-                        itemsPerPage: itemsPerPage,
-                        data: createData(),
-                        //data: dataFunc,
-                        render: renderer,
-                    });
-                });
-                $("#getpage").on('click', function() {
-                    alert($('#target').jqpaginator('getPage'));
-                });
-                $("#reload").on('click', function() {
-                    $('#target').jqpaginator('reload');
-                });
-                $("#destroy").on('click', function() {
-                    $('#target').jqpaginator('destroy');
-                });
-                $("#goto").on('click', function() {
-                    $('#target').jqpaginator('goto', 3);
-                });
-            });
-        </script>
-	<h1>jqpaginator - jQuery Pagination element plugin.</h1>
-
-	<div>
-		<button id="create">Create</button>
-		<button id="getpage">Get Page</button>
-		<button id="reload">Reload</button>
-		<button id="destroy">Destroy</button>
-		<button id="goto">Go to 3</button>
-	</div>
-
-	<div id="main"></div>
-
-	<div id="target"></div>
-
-
-	<!-- ]] - Pagination -->
-
-
-	<!-- tabbis.js - [[ -->
-
-	<div id="custom-tag"></div>
-
-
-	<script>
-// document.addEventListener('DOMContentLoaded', doSomething, false);
 
 // function doSomething () {
 	var videopoc = '<section class="section">'+
@@ -549,47 +276,92 @@ h1 {
 			
 
 	
-
+		var tabbisHtmlSample 
+			= '<div>'
+			
+			+ '<div data-tabs>' 
+				+ '<button>Photo</button>'	
+				+ '<button>Video</button>'	
+			+ '</div>'	
+			
+			+ '<div data-panes>'
+				+ '<div data-tabs>'
+					+ '<button>My Sweet Family</button>'	
+					+ '<button>Others</button>'					
+				+'</div>'
+				+ '<div>No Video</div>'
+			+ '</div>'
+			
+			+ '<div data-panes>'
+				+ '<div data-tabs>'
+					+ '<button>My Sweet Family-20190525 Disneyland HK</button>'
+					+ '<button>My Sweet Family-2020</button>'
+					+ '<button>My Sweet Family-2021 Featured</button>'			
+				+'</div>'
+				+ '<div>No Others</div>'
+			+ '</div>'
+			
+			+ '<div data-panes>'
+				+ '<div>My Sweet Family-20190525 Disneyland HK-002.jpg......</div>'
+				+ '<div>My Sweet Family-2020-0001.jpg.....</div>'
+				+ '<div>My Sweet Family-2021 Featured-001.jpg......</div>'
+			+ '</div>'			
+	 			
+ 			+ '</div>';
 	
 	
-	var tabbisHtml = '<div data-tabs>' 
-		+ '<button>Tab1</button>'
-		+ '<button>Tab2</button>'
-		+ '<button id="tab3">Tab3</button>'
+	var tabbisHtml 
+		= '<div data-tabs>' 
+			+ '<button>Tab1</button>'	// 1
+			+ '<button>Tab2</button>'	// 2
+		//+ '<button onclick="alert(1);$(\'#tabpanel-0-2\').html(\'hahaha\');">Tab3</button>'
+			+ '<button>Tab3</button>'
 		+ '</div>'
-		+ '<div data-panes>'
-	+ '<div>Pane1</div>'
-	+ '<div>'
-		+ '<div data-tabs>'
-		+ '<button>Tab4</button>'
-		+ '<button data-active>Tab5</button>'
-		+ '</div>'
-
-		+ '<div data-panes>'
-		+ '<div>Pane4</div>'
-		+ '<div>'
-		+ '<div data-tabs>'
-		+ '<button>Tab6</button>'
-		+ '<button data-active>Tab7</button>'
-		+ '</div>'
-
-		+ '<div data-panes>'
-		+ '<div>Pane6'+videopoc+'</div>'
-		+ '<div>Pane7'+contentpoc2+'</div>'
-		+ '</div>'
-		+ '</div>'
-		+ '</div>'
-		+ '</div>'
-		+ '<div>Pane3<div id="poc02"></div></div>'
-		+ '</div>';
-	
-	
-	 $("#tab3").on('click', function() {
-		 $('#poc02').html(contentpoc2);	
-     });
 		
+		// 1 - [[
+		+ '<div data-panes>'
+			+ '<div>Pane1</div>'
+		+ '<div>'
+		// ]] - 1
+		
+		// 2 - [[
+		+ '<div data-tabs>'
+			+ '<button>Tab2-1</button>'	// 2-1
+			+ '<button data-active>Tab2-2</button>'	// 2-2
+		+ '</div>'
+
+		// 2-1 - [[
+		+ '<div data-panes>'
+			+ '<div>Pane2-1</div>'
+		+ '<div>'
+		// ]] = 2-1
+	
+		// 2-2 [[
+		+ '<div data-tabs>'	
+			+ '<button>Tab2-2-1</button>'	// 2-2-1
+			+ '<button data-active>2-2-2</button>'	// 2-2-2
+		+ '</div>'
+		// ]] - 2-2
+
+		+ '<div data-panes>'
+// 			+ '<div>Pane6'+videopoc+'</div>'
+// 			+ '<div>Pane7'+contentpoc2+'</div>'
+			+ '<div>Pane2-2-1</div>'	// 2-2-1
+			+ '<div>Pane2-2-2</div>'	// 2-2-2	
+		+ '</div>'
+		
+		+ '</div>'
+		+ '</div>'
+		+ '</div>'
+		
+		+ '<div>Pane3</div>'
+// 		+ '<div id="pane3">'+videopoc+'</div>'
+		
+		+ '</div>';
+		 
     if (true){
-        $('#custom-tag').html(tabbisHtml);
+//          $('#custom-tag').html(tabbisHtml);
+       $('#custom-tag').html(tabbisHtmlSample);
     } else {
         $('#custom-tag').html('DifferentHtmlString');
     }
@@ -633,11 +405,31 @@ h1 {
       tabbis({
         memory: true
       });
+      
+      $(document).ready(function(){	
+ 		 $("#tab-0-2").click(function() {
+ 			 //alert("tab3 clicked");
+ 			 $('#tabpanel-0-2').html(contentpoc2);	
+ 			var url = window.location.href;    
+//  			if (url.indexOf('?') > -1){
+//  			   url += '&param=1'
+//  			}else{
+ 			   url += '?param=1'
+//  			}
+ 			window.location.href = url;
+ 			alert(url);
+ 			window.location.reload();
+ 			 tabbis({
+ 		          memory: false
+ 		      });
+ 	     });
+ 	});
+      
     </script>
 	<!-- ]] - tabbis.js -->
 
 	<!-- Simple images example -->
-	<section id="examples" class="section">
+	<section id="photos" class="section">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -788,8 +580,8 @@ h1 {
 								<a
 									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
 									class="glightbox2"
-									data-glightbox="title: Description Rightt; description: .custom-desc2; descPosition: right;">
-									<img
+									data-glightbox="title: Description Rightt; description: .custom-desc2; descPosition: right;"
+									onclick="alert('clicked');$('#poc01').html('clicked');"> <img
 									src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
 									alt="image" />
 								</a>
@@ -986,31 +778,18 @@ h1 {
 				<div class="col-md-12">
 					<div class="especifications">
 						<h3 class="text-center">Technical specifications</h3>
-						<p>GLightbox is built using es6 and transpiled with babel for
-							older browsers and can be used with nodejs.</p>
-
-						<h4>Animations</h4>
-						<p>All the animations are created with CSS and only the
-							transform and opacity properties are animated. You can overwrite
-							the CSS of the animations or create your own.</p>
 
 						<h4>Features</h4>
 						<ul>
-							<li>Small - only 11KB Gzipped</li>
-							<li>Responsive - works with any screen size</li>
-							<li>Gallery Support - Create multiple galleries</li>
-							<li>Video Support - Youtube, Vimeo and self hosted videos
-								with autoplay</li>
-							<li>Inline content support - display any inline content</li>
-							<li>Iframe support - need to embed an iframe? no problem</li>
-							<li>Keyboard Navigation - esc, arrows keys, tab and enter is
-								all you need</li>
-							<li>Touch Navigation - mobile touch events like swipe, move,
-								pinch, etc.</li>
-							<li>Zoomable images - zoom and drag images on mobile and
-								desktop</li>
-							<li>Retina ready - svg icons for controls.</li>
-							<li>Api - control the lightbox with the provided methods</li>
+							<li>No database required.</li>
+							<li>Web portal hosted at: AWS S3 bucket.</li>
+							<li>Repository: AWS S3 bucket.</li>
+							<li>Web portal technology: HTML5, JavaScript</li>
+							<li>AWS cloud technology: API Gateway, Lambda (with Python
+								3.9), Route 53, S3</li>
+							<li>Common JavaScript library: Bootstrap, JQuery v3.6.0,
+								Node.js</li>
+							<li>Open source: GLightbox & tabbis.js</li>
 						</ul>
 
 						<h4>Supported browsers and devices</h4>
@@ -1033,27 +812,30 @@ h1 {
 						<h4>Documentation</h4>
 						<p>
 							The documentation can be found in the github page. <a
-								href="https://github.com/biati-digital/glightbox/blob/master/README.md"
+								href="https://github.com/oceanlaurel/lawrence-s3-gallery/blob/master/README.md"
 								class="font-weight-bold" target="_blank">View Documentation</a>
 						</p>
 
-						<div id="license">
-							<h4>License</h4>
+						<div id="copyright">
+							<h4>Copyright</h4>
 							<p>
-								GLightbox is free to use for personal and commercial projects. <a
-									href="https://opensource.org/licenses/MIT" target="_blank">MIT
-									license</a>
+								Lawrence S3 gallery is a family gallery of Lawrence Wong for
+								personal use. All rights reserved. <a
+									href="https://biati-digital.github.io/glightbox/"
+									target="_blank">&quot;GLightbox&quot;</a> & <a
+									href="https://github.com/paulthewalton/tabbisjs"
+									target="_blank">&quot;tabbis.js&quot;</a> library are used for
+								this gallery.
 							</p>
 						</div>
 					</div>
 
 					<p class="text-center footer-btns">
-						<a class="mcbutton primary"
-							href="https://github.com/mcstudios/glightbox/releases/download/3.1.0/glightbox-master.zip">
-							<i class="fa fa-download"></i> Download
+						<a class="mcbutton primary" href="mailto:oceandeep@gmail.com">
+							<i class="fa fa-pencil fa-fw"></i> oceandeep@gmail.com
 						</a> <a class="mcbutton black"
-							href="https://github.com/mcstudios/glightbox" target="_blank">
-							<i class="fa fa-github"></i> View Source
+							href="https://github.com/oceanlaurel/lawrence-s3-gallery/tree/master"
+							target="_blank"> <i class="fa fa-github"></i> View Source
 						</a>
 					</p>
 				</div>
