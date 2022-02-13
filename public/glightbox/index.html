@@ -30,7 +30,7 @@
 	var isDebug = true;
 	if (isDebug) {
 		console.log("Total video key in S3 bucket: " + videoS3Keylist.file_list.length);
-		console.log("Total photo key in S3 bucket" + photoS3Keylist.file_list.length);
+		console.log("Total photo key in S3 bucket: " + photoS3Keylist.file_list.length);
 	}
 	
 	
@@ -112,7 +112,7 @@
 
 	<!-- tabbis.js - [[ -->
 
-	<div id="custom-tag"></div>
+	<div id="video-tabbis"></div>
 
 
 	<script>
@@ -124,7 +124,7 @@ var contentpoc2 = '<section id="examples" class="section">'+
       '				<div class="col-md-12">'+
       '					<h3>'+
       '						<i class="fa fa-camera-retro heading-icon" aria-hidden="true"></i>'+
-      '						Simple Image Gallery 2'+
+      '						Simple Image Gallery 2!'+
       '					</h3>'+
       ''+
       '					<ul class="box-container three-cols">'+
@@ -276,17 +276,17 @@ var contentpoc2 = '<section id="examples" class="section">'+
 			
 
 	
-		var tabbisHtmlSample 
+		var tabbisVideo
 			= '<div>'
 			
 			+ '<div data-tabs>' 
-				+ '<button>Photo</button>'	
+				+ '<button data-active>Photo</button>'	
 				+ '<button>Video</button>'	
 			+ '</div>'	
 			
 			+ '<div data-panes>'
 				+ '<div data-tabs>'
-					+ '<button>My Sweet Family</button>'	
+					+ '<button data-active>My Sweet Family</button>'	
 					+ '<button>Others</button>'					
 				+'</div>'
 				+ '<div>No Video</div>'
@@ -294,138 +294,58 @@ var contentpoc2 = '<section id="examples" class="section">'+
 			
 			+ '<div data-panes>'
 				+ '<div data-tabs>'
-					+ '<button>My Sweet Family-20190525 Disneyland HK</button>'
-					+ '<button>My Sweet Family-2020</button>'
-					+ '<button>My Sweet Family-2021 Featured</button>'			
+					+ '<button data-active>My Sweet Family-20190525 Disneyland HK</button>'
+					+ '<button onclick="switchTabbisPanel(this)">My Sweet Family-2020</button>'
+					+ '<button onclick="switchTabbisPanel(this)">My Sweet Family-2021 Featured</button>'			
 				+'</div>'
 				+ '<div>No Others</div>'
 			+ '</div>'
 			
 			+ '<div data-panes>'
-				+ '<div>My Sweet Family-20190525 Disneyland HK-002.jpg......</div>'
-				+ '<div>My Sweet Family-2020-0001.jpg.....</div>'
-				+ '<div>My Sweet Family-2021 Featured-001.jpg......</div>'
+				+ '<div data-active>My Sweet Family-20190525 Disneyland HK-002.jpg......</div>'
+				+ '<div>'+contentpoc2+'</div>'
+				+ '<div>'+contentpoc2+'</div>'
 			+ '</div>'			
 	 			
  			+ '</div>';
-	
-	
-	var tabbisHtml 
-		= '<div data-tabs>' 
-			+ '<button>Tab1</button>'	// 1
-			+ '<button>Tab2</button>'	// 2
-		//+ '<button onclick="alert(1);$(\'#tabpanel-0-2\').html(\'hahaha\');">Tab3</button>'
-			+ '<button>Tab3</button>'
-		+ '</div>'
-		
-		// 1 - [[
-		+ '<div data-panes>'
-			+ '<div>Pane1</div>'
-		+ '<div>'
-		// ]] - 1
-		
-		// 2 - [[
-		+ '<div data-tabs>'
-			+ '<button>Tab2-1</button>'	// 2-1
-			+ '<button data-active>Tab2-2</button>'	// 2-2
-		+ '</div>'
-
-		// 2-1 - [[
-		+ '<div data-panes>'
-			+ '<div>Pane2-1</div>'
-		+ '<div>'
-		// ]] = 2-1
-	
-		// 2-2 [[
-		+ '<div data-tabs>'	
-			+ '<button>Tab2-2-1</button>'	// 2-2-1
-			+ '<button data-active>2-2-2</button>'	// 2-2-2
-		+ '</div>'
-		// ]] - 2-2
-
-		+ '<div data-panes>'
-// 			+ '<div>Pane6'+videopoc+'</div>'
-// 			+ '<div>Pane7'+contentpoc2+'</div>'
-			+ '<div>Pane2-2-1</div>'	// 2-2-1
-			+ '<div>Pane2-2-2</div>'	// 2-2-2	
-		+ '</div>'
-		
-		+ '</div>'
-		+ '</div>'
-		+ '</div>'
-		
-		+ '<div>Pane3</div>'
-// 		+ '<div id="pane3">'+videopoc+'</div>'
-		
-		+ '</div>';
 		 
-    if (true){
-//          $('#custom-tag').html(tabbisHtml);
-       $('#custom-tag').html(tabbisHtmlSample);
-    } else {
-        $('#custom-tag').html('DifferentHtmlString');
-    }
-// }
 </script>
 
-	<!-- 	<div data-tabs> -->
-	<!-- 		<button>Tab1</button> -->
-	<!-- 		<button>Tab2</button> -->
-	<!-- 		<button>Tab3</button> -->
-	<!-- 	</div> -->
 
-	<!-- 	<div data-panes> -->
-	<!-- 		<div>Pane1</div> -->
-	<!-- 		<div> -->
-	<!-- 			<div data-tabs> -->
-	<!-- 				<button>Tab4</button> -->
-	<!-- 				<button data-active>Tab5</button> -->
-	<!-- 			</div> -->
 
-	<!-- 			<div data-panes> -->
-	<!-- 				<div>Pane4</div> -->
-	<!-- 				<div> -->
-	<!-- 					<div data-tabs> -->
-	<!-- 						<button>Tab6</button> -->
-	<!-- 						<button data-active>Tab7</button> -->
-	<!-- 					</div> -->
+<script src="./../common/tabbis-initializer.js"></script>
+<script>	
+	genTabbis(videoS3Keylist, 'video');
+	$('#video-tabbis').html(tabbisVideo);
+</script>
+	<script src="../tabbis.js/assets/js/dist/tabbis.es6.min.js"></script>
+	<script src="./../common/tabbis-controller.js"></script>
 
-	<!-- 					<div data-panes> -->
-	<!-- 						<div>Pane6</div> -->
-	<!-- 						<div>Pane7</div> -->
-	<!-- 					</div> -->
-	<!-- 				</div> -->
-	<!-- 			</div> -->
-	<!-- 		</div> -->
-	<!-- 		<div>Pane3</div> -->
-	<!-- 	</div> -->
-
-	<script src="../tabbis.js/assets/js/dist/tabbis.es6.js"></script>
-	<script>
-      tabbis({
-        memory: true
-      });
+	<script> 
+//       tabbis({
+//         memory: true
+//       });
       
-      $(document).ready(function(){	
- 		 $("#tab-0-2").click(function() {
- 			 //alert("tab3 clicked");
- 			 $('#tabpanel-0-2').html(contentpoc2);	
- 			var url = window.location.href;    
-//  			if (url.indexOf('?') > -1){
-//  			   url += '&param=1'
-//  			}else{
- 			   url += '?param=1'
-//  			}
- 			window.location.href = url;
- 			alert(url);
- 			window.location.reload();
- 			 tabbis({
- 		          memory: false
- 		      });
- 	     });
- 	});
+//       $(document).ready(function(){	
+//  		 $("#tab-0-2").click(function() {
+//  			 //alert("tab3 clicked");
+//  			 $('#tabpanel-0-2').html(contentpoc2);	
+//  			var url = window.location.href;    
+// //  			if (url.indexOf('?') > -1){
+// //  			   url += '&param=1'
+// //  			}else{
+//  			   url += '?param=1'
+// //  			}
+//  			window.location.href = url;
+//  			alert(url);
+//  			window.location.reload();
+//  			 tabbis({
+//  		          memory: false
+//  		      });
+//  	     });
+//  	});
       
-    </script>
+     </script>
 	<!-- ]] - tabbis.js -->
 
 	<!-- Simple images example -->
