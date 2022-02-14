@@ -113,7 +113,7 @@
 	<!-- tabbis.js - [[ -->
 
 	<div id="video-tabbis"></div>
-
+	<div id="photo-tabbis"></div>
 
 	<script>
 // document.addEventListener('DOMContentLoaded', doSomething, false);
@@ -309,6 +309,7 @@ var contentpoc2 = '<section id="examples" class="section">'+
 	 			
  			+ '</div>';
 		 
+ 			var tabbisPhoto = tabbisVideo;			
 </script>
 
 
@@ -317,6 +318,7 @@ var contentpoc2 = '<section id="examples" class="section">'+
 <script>	
 	genTabbis(videoS3Keylist, 'video');
 	$('#video-tabbis').html(tabbisVideo);
+	$('#photo-tabbis').html(tabbisPhoto);
 </script>
 	<script src="../tabbis.js/assets/js/dist/tabbis.es6.min.js"></script>
 	<script src="./../common/tabbis-controller.js"></script>
