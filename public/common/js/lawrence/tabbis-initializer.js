@@ -45,6 +45,12 @@ function genTabbis(json, type) {
 			console.log('Level ' + i + ' folder list: ' + tabbisDataTabsArray[i]);
 		}
 	}
+	
+	tabbis = '';
+	for (i = 0; i < tabbisDataTabsArray.length; i++) {
+		tabbis += tabbisDataTabsArray[i];
+	}
+	return tabbis;
 }
 
 String.prototype.replaceLast = function(search, replace) {
@@ -83,15 +89,15 @@ function getTabbisStructure(itemPathListArray) {
 									currentPathPreviousLevelFolderName = currentPathArray[level - 1].trim();
 									if ((0 == previousPathPreviousLevelFolderName.localeCompare(currentPathPreviousLevelFolderName))
 										&& 0 != ''.localeCompare(previousPathArray[level].trim())) {
-										tabbisDataTabsArray[level] += '<button>' + currentPathArray[level] + '</button>';
+										tabbisDataTabsArray[level] += '<button class="button-tabbis"><span>' + currentPathArray[level] + '</span></button>';
 										previousButtonName = currentPathArray[level].trim();
 									} else {
-										tabbisDataTabsArray[level] += '</div><div data-tabs><button>' + currentPathArray[level] + '</button>';
+										tabbisDataTabsArray[level] += '</div><div data-tabs><button class="button-tabbis"><span>' + currentPathArray[level] + '</span></button>';
 										previousButtonName = currentPathArray[level].trim();
 									}
 								}
 							} else {
-								tabbisDataTabsArray[level] = '<div data-tabs><button>' + currentPathArray[level] + '</button>';
+								tabbisDataTabsArray[level] = '<div data-tabs><button class="button-tabbis"><span>' + currentPathArray[level] + '</span></button>';
 								previousButtonName = currentPathArray[level].trim();
 							}
 						}
@@ -100,11 +106,11 @@ function getTabbisStructure(itemPathListArray) {
 							foundSubFolderInThisLevel = true;
 							if (typeof (tabbisDataTabsArray[0]) != "undefined") {
 								if (0 != previousButtonName.localeCompare(currentPathArray[0].trim())) {
-									tabbisDataTabsArray[0] += '<button>' + currentPathArray[0] + '</button>';
+									tabbisDataTabsArray[0] += '<button class="button-tabbis"><span>' + currentPathArray[0] + '</span></button>';
 									previousButtonName = currentPathArray[0].trim();
 								}
 							} else {
-								tabbisDataTabsArray[0] = '<div data-tabs><button>' + currentPathArray[0] + '</button>';
+								tabbisDataTabsArray[0] = '<div data-tabs><button class="button-tabbis"><span>' + currentPathArray[0] + '</span></button>';
 								previousButtonName = currentPathArray[level].trim();
 							}
 						}
@@ -118,6 +124,10 @@ function getTabbisStructure(itemPathListArray) {
 		} while (foundSubFolderInThisLevel);
 	} catch (err) {
 		console.log('Error: ' + err.message);
+	}
+
+	for (i = 1; i < tabbisDataTabsArray.length; i++) {
+		tabbisDataTabsArray[i] = '<div data-panes>' + tabbisDataTabsArray[i] + '</div>';
 	}
 
 	if (isDebug) {

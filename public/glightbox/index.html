@@ -16,7 +16,9 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 <!-- ]] - glightbox -->
-
+<!-- Lawrence - [[ -->
+<link rel="stylesheet" href="./../common/css/button.css" />
+<!-- Lawrence - ]] -->
 <title>Lawrence S3 Gallery | My Sweet Memories</title>
 
 <!-- Key list by GenerateGalleryPathList Lambda - [[ -->
@@ -24,7 +26,7 @@
 <script src="./../config/photo-key-list.json"></script>
 <!-- ]] -->
 
-<script src="./../common/jquery-3.6.0.min.js"></script>
+<script src="./../common/js/jquery-3.6.0.min.js"></script>
 
 <script>
 	var isDebug = true;
@@ -113,8 +115,11 @@
 	<!-- tabbis.js - [[ -->
 
 	<div id="video-tabbis"></div>
+	<br>
+	<hr>
+	<br>
 	<div id="photo-tabbis"></div>
-
+	<br>
 	<script>
 // document.addEventListener('DOMContentLoaded', doSomething, false);
 
@@ -310,18 +315,31 @@ var contentpoc2 = '<section id="examples" class="section">'+
  			+ '</div>';
 		 
  			var tabbisPhoto = tabbisVideo;			
-</script>
+
+// [[ Temp
+// 	var tabbisVideoTemp = '<div data-tabs><button>Video</button></div>'
+// 		+ '<div data-panes><div data-tabs><button>Friend or Other</button><button>Hobby</button><button>Lawrence</button><button>My Sweet Family</button><button>Relative-HO</button><button>Relative-WONG</button></div></div>'
+// 		+ '<div data-panes><div data-tabs><button>Friend or Other-2003</button><button>Friend or Other-2004 北京交流團</button><button>Friend or Other-2016</button><button>Friend or Other-Joey Ku</button><button>Friend or Other-Other</button><button>Friend or Other-Team building</button></div><div data-tabs><button>Hobby</button></div><div data-tabs><button>Lawrence-20081130 Grad</button></div><div data-tabs><button>My Sweet Family-2011 Propose Marriage</button><button>My Sweet Family-20110726 最佳女朋友</button><button>My Sweet Family-20111128 Disneyland HK</button><button>My Sweet Family-2012</button><button>My Sweet Family-2013 Wedding</button><button>My Sweet Family-2014 Honeymoon</button><button>My Sweet Family-2015</button><button>My Sweet Family-2016 Featured</button><button>My Sweet Family-2017 Christmas</button><button>My Sweet Family-2017 Featured</button><button>My Sweet Family-2018 Christmas</button><button>My Sweet Family-2018 Featured</button><button>My Sweet Family-2019 Featured</button><button>My Sweet Family-2019 Twins Birthday</button><button>My Sweet Family-2019 京都大阪遊</button><button>My Sweet Family-2020 Featured</button><button>My Sweet Family-2020 Jennies Birthday</button><button>My Sweet Family-2021 Featured</button></div><div data-tabs><button>Relative-HO-2012</button><button>Relative-HO-2019</button><button>Relative-HO-2020</button></div><div data-tabs><button>Relative-WONG-2011</button><button>Relative-WONG-2019</button></div></div>'
+// 		+ '<div data-panes><div data-tabs><button>Friend or Other-2004 北京交流團 Day 1</button><button>Friend or Other-2004 北京交流團 Day 2</button><button>Friend or Other-2004 北京交流團 Day 3</button><button>Friend or Other-2004 北京交流團 Day 4</button><button>Friend or Other-2004 北京交流團 Day 5</button></div><div data-tabs><button>My Sweet Family-2019 京都大阪遊-20190323</button><button>My Sweet Family-2019 京都大阪遊-20190325</button><button>My Sweet Family-2019 京都大阪遊-20190328</button><button>My Sweet Family-2019 京都大阪遊-20190329</button><button>My Sweet Family-2019 京都大阪遊-20190330</button></div></div>'
+// 	;
+	
+
+// ]] Temp
+ 			
+ </script>
 
 
 
-<script src="./../common/tabbis-initializer.js"></script>
-<script>	
-	genTabbis(videoS3Keylist, 'video');
-	$('#video-tabbis').html(tabbisVideo);
-	$('#photo-tabbis').html(tabbisPhoto);
+	<script src="./../common/js/lawrence/tabbis-initializer.js"></script>
+	<script>	
+	var tabbisVideo = genTabbis(videoS3Keylist, 'video');
+ 	$('#video-tabbis').html(tabbisVideo);
+//	$('#video-tabbis').html(tabbisVideoTemp);
+// 	var tabbisPhoto = genTabbis(photoS3Keylist, 'photo');
+//	$('#photo-tabbis').html(tabbisPhoto);
 </script>
 	<script src="../tabbis.js/assets/js/dist/tabbis.es6.min.js"></script>
-	<script src="./../common/tabbis-controller.js"></script>
+	<script src="./../common/js/lawrence/tabbis-controller.js"></script>
 
 	<script> 
 //       tabbis({

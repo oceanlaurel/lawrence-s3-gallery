@@ -1,0 +1,50 @@
+.button-tabbis {
+	display: inline-block;
+	border: 2px solid #9494b8;
+	border-radius: 5px;
+	background-color: #ffffff;
+	color: #9999ff;
+	  text-align: center;
+	  font-size: 16px;
+	padding: 2px;
+/* 	width: 200px; */
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 2px 2px;
+	vertical-align: middle;
+}
+
+.button-tabbis span {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+.button-tabbis span:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+.button-tabbis:hover span {
+	padding-right: 25px;
+}
+
+.button-tabbis:hover span:after {
+	opacity: 1;
+	right: 0;
+}
+/* </style> */
+/* </head> */
+/* <body> */
+
+/* <h2>Animated Button</h2> */
+
+/* <button class="button1" style="vertical-align:middle"><span>Hover </span></button> */
+
+/* </body> */
+/* </html> */
