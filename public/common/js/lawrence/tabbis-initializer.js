@@ -45,11 +45,12 @@ function genTabbis(json, type) {
 			console.log('Level ' + i + ' folder list: ' + tabbisDataTabsArray[i]);
 		}
 	}
-	
+
 	tabbis = '';
 	for (i = 0; i < tabbisDataTabsArray.length; i++) {
 		tabbis += tabbisDataTabsArray[i];
 	}
+
 	return tabbis;
 }
 
@@ -139,4 +140,5 @@ function getTabbisStructure(itemPathListArray) {
 
 	return tabbisDataTabsArray;
 }
+
 
