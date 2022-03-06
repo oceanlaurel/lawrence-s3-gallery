@@ -2,7 +2,7 @@ tabbis({
 	memory: true
 });
 
-function switchTabbisPanel(obj) {
+function switchTreeViewPanel(obj) {
 
 	//	$('#'+obj.id).html(content);
 

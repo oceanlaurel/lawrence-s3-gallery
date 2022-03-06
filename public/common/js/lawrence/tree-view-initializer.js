@@ -1,4 +1,4 @@
-function genTabbis(json, type) {
+function genTreeViews(json, type) {
 
 	const isDebug = false;
 	var itemPathList = "";
@@ -39,31 +39,15 @@ function genTabbis(json, type) {
 		console.log('Total ' + type + ' file amount: ' + fileCount);
 	}
 
-	console.log("here");
-	for (i = 0; i < itemPathListArray.length; i++) {
-		console.log('itemPathListArray[' + i + ']: ' + itemPathListArray[i]);
-	}
+//	if (isDebug) {
+		for (i = 0; i < itemPathListArray.length; i++) {
+			console.log('itemPathListArray[' + i + ']: ' + itemPathListArray[i]);
+		}
+//	}
 
+	treeView = genTreeViewStructure(itemPathListArray, "Videos");
 
-
-	//	tabbisDataTabsArray = getTabbisStructure(itemPathListArray);
-	//
-	//	for (i = 0; i < tabbisDataTabsArray.length; i++) {
-	//		console.log('Level ' + i + ' folder list: ' + tabbisDataTabsArray[i]);
-	//	}
-	//
-	//	tabbis = '';
-	//	for (i = 0; i < tabbisDataTabsArray.length; i++) {
-	//		tabbis += tabbisDataTabsArray[i];
-	//	}
-	//
-	//	if (isDebug) {
-	//		console.log('tabbis: ' + tabbis);
-	//	}
-
-	treeView = getTreeViewStructure(itemPathListArray, "Videos");
-
-	return tabbis;
+	return treeView;
 }
 
 String.prototype.replaceLast = function(search, replace) {
@@ -98,10 +82,12 @@ function getKeyFromTreeItem(treeViewItems, itemIndex) {
 	return key;
 }
 
-function getTreeViewStructure(itemPathListArray, figcaption) {
+function genTreeViewStructure(itemPathListArray, figcaption) {
 
-	console.log("getTreeViewStructure:");
+	console.log("genTreeViewStructure:");
 	itemPathListArray.sort();
+
+	const valuePrefix = "KEY=";
 
 	var treeNumber = 0;
 	var treeView = [];
@@ -118,13 +104,6 @@ function getTreeViewStructure(itemPathListArray, figcaption) {
 			currentKEYSubKeys = currentKEY.split("/");
 			if (2 < currentKEYSubKeys.length) {
 				if (!bIsInitialTrees) {
-					//	tabbis-initializer.js:110 Video/Friend or Other/Friend or Other-2003/
-					//	tabbis-initializer.js:110 Video/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 1/
-					//	tabbis-initializer.js:110 Video/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 2/
-					//	tabbis-initializer.js:110 Video/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 3/
-					//	tabbis-initializer.js:110 Video/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 4/
-					//	tabbis-initializer.js:110 Video/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 5/
-					//	tabbis-initializer.js:110 Video/Friend or Other/Friend or Other-2016/
 
 					if (0 == "Video/Relative-WONG/Relative-WONG-2019/".localeCompare(currentKEY)) {
 						console.log("Debug");
@@ -146,19 +125,16 @@ function getTreeViewStructure(itemPathListArray, figcaption) {
 							// Found treeview with matched parent value:
 							var foundAtTreeNumber = -1;
 							for (j = 0; j < treeView.length; j++) {
-								if (-1 != treeView[j].indexOf(currentLiPreviousValue, 0)) {
+								if (-1 != treeView[j].indexOf((valuePrefix + currentLiPreviousValue), 0)) {
 									foundAtTreeNumber = j;
 									break;
 								}
 							}
-							//	Video/Friend or Other/Friend or Other-2003/
-							//	Video/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 1/
-							//	Video/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 2/
 							// Construct this key into matched tree view:
 							if (-1 < foundAtTreeNumber) {
 								try {
-									if (-1 == treeView[j].indexOf(currentLiValue, 0)) {
-										treeView[foundAtTreeNumber] += getReserveLabel(currentLiValue, true) + "<li value=\"" + currentLiValue + "\"><code>" + currentLabel + "</code>" + getReserveLabel(currentLiValue, false);
+									if (-1 == treeView[j].indexOf((valuePrefix + currentLiValue), 0)) {
+										treeView[foundAtTreeNumber] += getReserveLabel(currentLiValue, true) + "<li value=\"" + valuePrefix + currentLiValue + "\"><code>" + currentLabel + "</code>" + getReserveLabel(currentLiValue, false);
 									}
 								} catch (err) {
 									console.log(err);
@@ -179,12 +155,12 @@ function getTreeViewStructure(itemPathListArray, figcaption) {
 						if (typeof (treeView[treeNumber]) != "undefined") {
 							treeNumber++;
 							treeView[treeNumber] = "<figure><figcaption>" + figcaption + " - " + currentLabel + "</figcaption><ul class=\"tree\">";
-							treeView[treeNumber] += "<li value=\"" + liValue + "\"><code>" + currentLabel + "</code>";
+							treeView[treeNumber] += "<li value=\"" + valuePrefix + liValue + "\"><code>" + currentLabel + "</code>";
 							previousLv1Label = currentLabel;
 							foundItemInCurrentLevel = true;
 						} else {
 							treeView[treeNumber] = "<figure><figcaption>" + figcaption + " - " + currentLabel + "</figcaption><ul class=\"tree\">";
-							treeView[treeNumber] += "<li value=\"" + liValue + "\"><code>" + currentLabel + "</code>";
+							treeView[treeNumber] += "<li value=\"" + valuePrefix + liValue + "\"><code>" + currentLabel + "</code>";
 							previousLv1Label = currentLabel;
 							foundItemInCurrentLevel = true;
 						}
@@ -203,10 +179,13 @@ function getTreeViewStructure(itemPathListArray, figcaption) {
 
 	} while (foundItemInCurrentLevel && temp < 100);
 
-
+	var fullTreeView = "";
 	for (i = 0; i < treeView.length; i++) {
 		console.log("treeView[:" + i + "]: " + treeView[i]);
+		fullTreeView += treeView[i] + "[[[TREE]]]";
 	}
+	
+	return fullTreeView;
 
 	//Video/Friend or Other/Friend or Other-2003/
 	/*
@@ -263,134 +242,7 @@ tabbis-initializer.js:148 treeView[:5]: <figure><figcaption>Videos: - Relative-W
 	tabbis-initializer.js:110 Video/Relative-WONG/Relative-WONG-2019/
 	*/
 
-	//	const isDebug = false;
-	//	const treeViewArray = [];
-	//	const itemPathListArrayLength = itemPathListArray.length;
 
-	//	const treeItem = {
-	//		key: "Video/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 1/",
-	//		label: "Friend or Other-2004 北京交流團 Day 1",
-	//		level: 3
-	//	};
-	//	console.log("getTreeViewStructure:");
-
-	//	treeView = "<figure><figcaption>Example DOM structure diagram</figcaption><ul class=\"tree\">";
-
-
-	//	do {
-	//		console.log(" ");
-	//		console.log("level: " + level);
-	//
-	//		bCurrentLevelHaveHaveItem = false;
-	//		var previousFolderName = null;
-	//		for (i = 0; i < itemPathListArray.length; i++) {
-	//
-	//			debugKey = 'Video/Friend or Other/Friend or Other-2003/';
-	//			if (0 == debugKey.localeCompare(itemPathListArray[i].trim()) && 2 == level) {
-	//				console.log("Level: " + level + "; Debug: " + debugKey);
-	//			}
-	//
-	//			console.log();
-	//			console.log("itemPathListArray[" + i + "]: (key)" + itemPathListArray[i]);
-	//			itemPathListArrayParts = itemPathListArray[i].split("/");
-	//			if (null != itemPathListArrayParts[level] &&
-	//				0 != "".localeCompare(itemPathListArrayParts[level].trim())) {
-	//				var currentFolderName = itemPathListArrayParts[level].trim();
-	//				//				if (null != previousFolderName) {
-	//				if (0 == level) {
-	//					if (0 != previousFolderName.localeCompare(currentFolderName)) {
-	//							/*treeView[level]*/ treeView += /*tempSplitSign +*/ "<li value=\"" + itemPathListArray[i] + "\"><code>" + currentFolderName + "</code>" + getReserveLabel(itemPathListArray[i]) + "</li>";
-	//						bCurrentLevelHaveHaveItem = true;
-	//					}
-	//				} else {
-	//					if (0 != previousFolderName.localeCompare(currentFolderName)) {
-	//						if (typeof /*(treeView[level - 1])*/(treeView) != "undefined") {
-	//							currentTreeViewItems = /*treeView[level - 1]*/ treeView.split(tempSplitSign);
-	//							var isParentFolderMatched = false;
-	//							for (j = 0; j < currentTreeViewItems.length; j++) {
-	//								previousLevelTreeViewItemKey = getKeyFromTreeItem(currentTreeViewItems, j);
-	//								//							currentLevelTreeViewItemKey = itemPathListArray[i];
-	//								previousLevelTreeViewItemKeyParts = previousLevelTreeViewItemKey.split("/");
-	//								currentLevelTreeViewItemKeyParts = itemPathListArray[i].split("/");
-	//								for (k = level - 1; k > -1; k--) {
-	//									//										if (0 == previousLevelTreeViewItemKeyParts[j].localeCompare(currentLevelTreeViewItemKeyParts[j])) {
-	//									if (typeof (previousLevelTreeViewItemKeyParts[k]) != "undefined" && typeof (currentLevelTreeViewItemKeyParts[k]) != "undefined") {
-	//										if (0 == previousLevelTreeViewItemKeyParts[k].localeCompare(currentLevelTreeViewItemKeyParts[k])) {
-	//											previousReserveLabel = getReserveLabel(previousLevelTreeViewItemKey);
-	//											treeViewItem = "<li value=\"" + itemPathListArray[i] + "\"><code>" + currentFolderName + "</code>" + getReserveLabel(itemPathListArray[i])
-	//												+ "</li>" + previousReserveLabel;
-	//											/*treeView[level - 1]*/ treeView = /*treeView[level - 1]*/ treeView.replace(previousReserveLabel, treeViewItem);
-	//											previousFolderName = currentFolderName;
-	//											isParentFolderMatched = true;
-	//											folderNames[folderNames.length] = currentFolderName;
-	//											bCurrentLevelHaveHaveItem = true;
-	//											break;
-	//										}
-	//									}
-	//								}
-	//								if (isParentFolderMatched) {
-	//									break;
-	//								}
-	//								// TODO..
-	//							}
-	//							// TODO...
-	//						}
-	//					}
-	//				}
-	//			} else {
-	//				if (0 == level) {
-	//						/*treeView[level]*/ treeView += "<li value=\"" + itemPathListArray[i] + "\"><code>" + currentFolderName + "</code>" + getReserveLabel(itemPathListArray[i]) + "</li>";
-	//					previousFolderName = currentFolderName;
-	//					folderNames[folderNames.length] = currentFolderName;
-	//					bCurrentLevelHaveHaveItem = true;
-	//				} else {
-	//					if (typeof (/*treeView[level - 1]*/ treeView) != "undefined") {
-	//						currentTreeViewItems = /*treeView[level - 1]*/ treeView.split(tempSplitSign);
-	//						var isParentFolderMatched = false;
-	//						//							for (j = 0; j < currentTreeViewItems.length; j++) {
-	//						previousLevelTreeViewItemKey = getKeyFromTreeItem(currentTreeViewItems, j);
-	//						//							currentLevelTreeViewItemKey = itemPathListArray[i];
-	//						//								previousLevelTreeViewItemKeyParts = previousLevelTreeViewItemKey.split("/");
-	//						previousLevelTreeViewItemKeyParts = treeView.split("/");
-	//						currentLevelTreeViewItemKeyParts = itemPathListArray[i].split("/");
-	//						for (k = level - 1; k > -1; k--) {
-	//							//									if (0 == previousLevelTreeViewItemKeyParts[j].localeCompare(currentLevelTreeViewItemKeyParts[j])) {
-	//							if (typeof (previousLevelTreeViewItemKeyParts[k]) != "undefined" && typeof (currentLevelTreeViewItemKeyParts[k]) != "undefined") {
-	//								if (0 == previousLevelTreeViewItemKeyParts[k].localeCompare(currentLevelTreeViewItemKeyParts[k])) {
-	//									previousReserveLabel = getReserveLabel(previousLevelTreeViewItemKey);
-	//									treeViewItem = "<ul><li value=\"" + itemPathListArray[i] + "\"><code>" + currentFolderName + "</code>" + getReserveLabel(itemPathListArray[i])
-	//										+ "</li>" + previousReserveLabel;
-	//										/*treeView[level - 1]*/ treeView = /*treeView[level - 1]*/ treeView.replace(previousReserveLabel, treeViewItem);
-	//									previousFolderName = currentFolderName;
-	//									isParentFolderMatched = true;
-	//									folderNames[folderNames.length] = currentFolderName;
-	//									bCurrentLevelHaveHaveItem = true;
-	//									break;
-	//								}
-	//							}
-	//							//								}
-	//							if (isParentFolderMatched) {
-	//								break;
-	//							}
-	//							// TODO..
-	//						}
-	//						// TODO...
-	//					}
-	//				}
-	//			}
-	//		}
-	//		//		}
-	//		level++;
-	//	} while (bCurrentLevelHaveHaveItem);
-	//
-	//	//	for (i = 0; i < treeView.length; i++) {
-	//	//		console.log("treeView[" + i + "]: " + treeView[i]);
-	//	//	}
-	//	console.log("treeView: " + treeView);
-	//
-	//	for (i = 0; i < folderNames.length; i++) {
-	//		console.log("folderNames[" + i + "]: " + folderNames[i]);
-	//	}
 	/*
 itemPathListArray[0]: Video/ tabbis-initializer.js:44:11
 itemPathListArray[1]: Video/Friend or Other/ tabbis-initializer.js:44:11
@@ -439,6 +291,6 @@ itemPathListArray[43]: Video/Relative-WONG/Relative-WONG-2019/ tabbis-initialize
 itemPathListArray[44]: tabbis-initializer.js:44:11
 	
 	 */
-	return "";
+	
 }
 
