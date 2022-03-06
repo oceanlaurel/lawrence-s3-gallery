@@ -26,6 +26,99 @@
 <script src="./../config/photo-key-list.json"></script>
 <!-- ]] -->
 
+<!-- Lawrence [[ -->
+<style>
+body {
+	font-family: Calibri, Segoe, "Segoe UI", "Gill Sans", "Gill Sans MT",
+		sans-serif;
+}
+
+/* It's supposed to look like a tree diagram */
+.tree, .tree ul, .tree li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+
+.tree {
+	margin: 0 0 1em;
+	text-align: center;
+}
+
+.tree, .tree ul {
+	display: table;
+}
+
+.tree ul {
+	width: 100%;
+}
+
+.tree li {
+	display: table-cell;
+	padding: .5em 0;
+	vertical-align: top;
+}
+/* _________ */
+.tree li:before {
+	outline: solid 1px #666;
+	content: "";
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.tree li:first-child:before {
+	left: 50%;
+}
+
+.tree li:last-child:before {
+	right: 50%;
+}
+
+.tree code, .tree span {
+	border: solid .1em #666;
+	border-radius: .2em;
+	display: inline-block;
+	margin: 0 .2em .5em;
+	padding: .2em .5em;
+	position: relative;
+}
+/* If the tree represents DOM structure */
+.tree code {
+	font-family: monaco, Consolas, 'Lucida Console', monospace;
+}
+
+/* | */
+.tree ul:before, .tree code:before, .tree span:before {
+	outline: solid 1px #666;
+	content: "";
+	height: .5em;
+	left: 50%;
+	position: absolute;
+}
+
+.tree ul:before {
+	top: -.5em;
+}
+
+.tree code:before, .tree span:before {
+	top: -.55em;
+}
+
+/* The root node doesn't connect upwards */
+.tree>li {
+	margin-top: 0;
+}
+
+.tree>li:before, .tree>li:after, .tree>li>code:before, .tree>li>span:before
+	{
+	outline: none;
+}
+</style>
+<!-- Lawrence ]] -->
+
 <script src="./../common/js/jquery-3.6.0.min.js"></script>
 
 <script>
@@ -111,6 +204,77 @@
 		</div>
 	</div>
 
+	<!-- Lawrence [[ -->
+	<figure>
+		<figcaption>Example DOM structure diagram</figcaption>
+		<ul class="tree">
+			<li><code>Video</code>
+				<ul>
+					<li><code>Friend or Other</code>
+						<ul>
+							<li value="123"><code>Friend or Other-2003</code></li>
+							<li><code>Friend or Other-2004 北京交流團</code>
+								<ul>
+									<li><code>Friend or Other-2004 北京交流團 Day 1</code></li>
+									<li><code>Friend or Other-2004 北京交流團 Day 2</code></li>
+									<li><code>Friend or Other-2004 北京交流團 Day 3</code></li>
+									<li><code>Friend or Other-2004 北京交流團 Day 4</code></li>
+									<li><code>Friend or Other-2004 北京交流團 Day 5</code></li>
+								</ul></li>
+							<li><code>Friend or Other-2016</code></li>
+							<li><code>Friend or Other-Other</code></li>
+							<li><code>Friend or Other-Team building</code></li>
+						</ul></li>
+					<li><code>Hobby</code>
+						<ul>
+							<li><code>Hobby</code></li>
+						</ul></li>
+				</ul></li>
+		</ul>
+	</figure>
+	<figure>
+		<figcaption>Example sitemap</figcaption>
+		<ul class="tree">
+			<li><span><button class="button-tabbis"
+						value="Video/Friend or Other/Friend or Other-2003/">
+						<span>Home</span>
+					</button></span>
+				<ul>
+					<li><span>About us</span>
+						<ul>
+							<li><span>Our history</span>
+								<ul>
+									<li><span>Founder</span></li>
+								</ul></li>
+							<li><span>Our board</span>
+								<ul>
+									<li><span>Brad Whiteman</span></li>
+									<li><span>Cynthia Tolken</span></li>
+									<li><span>Bobby Founderson</span></li>
+								</ul></li>
+						</ul></li>
+					<li><span>Our products</span>
+						<ul>
+							<li><span>The Widget 2000™</span>
+								<ul>
+									<li><span>Order form</span></li>
+								</ul></li>
+							<li><span>The McGuffin V2</span>
+								<ul>
+									<li><span>Order form</span></li>
+								</ul></li>
+						</ul></li>
+					<li><span>Contact us</span>
+						<ul>
+							<li><span>Social media</span>
+								<ul>
+									<li><span>Facebook</span></li>
+								</ul></li>
+						</ul></li>
+				</ul></li>
+		</ul>
+	</figure>
+	<!-- Lawrence ]] -->
 
 	<!-- tabbis.js - [[ -->
 
@@ -120,6 +284,9 @@
 	<br>
 	<div id="photo-tabbis"></div>
 	<br>
+
+
+
 	<script>
 // document.addEventListener('DOMContentLoaded', doSomething, false);
 
@@ -281,40 +448,76 @@ var contentpoc2 = '<section id="examples" class="section">'+
 			
 
 	
-		var tabbisVideo
-			= '<div>'
+// 		var tabbisVideoPoc = '<div>'
+// 			// 0:
+// 			+ '<div data-tabs>' 
+// 				+ '<button data-active>Photo</button>'	
+// 				+ '<button>Video</button>'	
+// 			+ '</div>'	
+// 			// 1:
+// 			+ '<div data-panes>'
+// 				+ '<div data-tabs>'
+// 					+ '<button data-active>My Sweet Family</button>'	
+// 					+ '<button>Others</button>'					
+// 				+'</div>'
+// 				+ '<div>[Video]</div>'
+// 			+ '</div>'
+// 			// 2:
+// 			+ '<div data-panes>'
+// 				+ '<div data-tabs>'
+// 					+ '<button data-active>My Sweet Family-20190525 Disneyland HK</button>'
+// 					+ '<button onclick="switchTabbisPanel(this)">My Sweet Family-2020</button>'
+// 					+ '<button onclick="switchTabbisPanel(this)">My Sweet Family-2021 Featured</button>'			
+// 				+'</div>'
+// 				+ '<div>[Others]</div>'
+// 			+ '</div>'
 			
+// 			+ '<div data-panes>'
+// 				+ '<div data-active>My Sweet Family-20190525 Disneyland HK-002.jpg......</div>'
+// 				+ '<div>'+contentpoc2+'</div>'
+// 				+ '<div>'+contentpoc2+'</div>'
+// 			+ '</div>'			
+	 			
+//  			+ '</div>';
+		 
+		var tabbisVideoPoc = '<div>'
+			// 0:
 			+ '<div data-tabs>' 
 				+ '<button data-active>Photo</button>'	
 				+ '<button>Video</button>'	
 			+ '</div>'	
-			
+			// 1:
 			+ '<div data-panes>'
 				+ '<div data-tabs>'
 					+ '<button data-active>My Sweet Family</button>'	
 					+ '<button>Others</button>'					
 				+'</div>'
-				+ '<div>No Video</div>'
 			+ '</div>'
 			
+		+ '<div data-panes>'
+			+ '<div>[Video]</div>'
+		+ '</div>'
+			
+			// 2:
 			+ '<div data-panes>'
 				+ '<div data-tabs>'
 					+ '<button data-active>My Sweet Family-20190525 Disneyland HK</button>'
-					+ '<button onclick="switchTabbisPanel(this)">My Sweet Family-2020</button>'
-					+ '<button onclick="switchTabbisPanel(this)">My Sweet Family-2021 Featured</button>'			
+					+ '<button>My Sweet Family-2020</button>'
+					+ '<button>My Sweet Family-2021 Featured</button>'			
 				+'</div>'
-				+ '<div>No Others</div>'
+				+ '<div>[Others]</div>'
 			+ '</div>'
 			
 			+ '<div data-panes>'
-				+ '<div data-active>My Sweet Family-20190525 Disneyland HK-002.jpg......</div>'
-				+ '<div>'+contentpoc2+'</div>'
-				+ '<div>'+contentpoc2+'</div>'
+				+ '<div data-active>[My Sweet Family-20190525 Disneyland HK]</div>'
+				+ '<div>[My Sweet Family-2020]</div>'
+				+ '<div>[My Sweet Family-2021 Featured]</div>'
 			+ '</div>'			
 	 			
  			+ '</div>';
+		 		 
 		 
- 			var tabbisPhoto = tabbisVideo;			
+ //			var tabbisPhoto = tabbisVideo;			
 
 // [[ Temp
 // 	var tabbisVideoTemp = '<div data-tabs><button>Video</button></div>'
@@ -326,17 +529,27 @@ var contentpoc2 = '<section id="examples" class="section">'+
 
 // ]] Temp
  			
+//  		testTabbisString = 
+//  			'<div data-tabs><button class="button-tabbis" value="Photo/"><span>Photo</span></button></div>'
+//  			+ '<div data-panes><div data-tabs><button class="button-tabbis" value="Photo/Friend or Other/"><span>Friend or Other</span></button><button class="button-tabbis" value="Photo/Hobby/Hobby-2021 Featured/"><span>Hobby</span></button><button class="button-tabbis" value="Photo/Lawrence/"><span>Lawrence</span></button><button class="button-tabbis" value="Photo/My Sweet Family/"><span>My Sweet Family</span></button><button class="button-tabbis" value="Photo/Relative-HO/Relative-HO-2014/"><span>Relative-HO</span></button><button class="button-tabbis" value="Photo/Relative-WONG/"><span>Relative-WONG</span></button><button class="button-tabbis" value="Photo/Source Material/Source Material/"><span>Source Material</span></button></div></div>'
+//  			+ '<div data-panes><div data-tabs><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2002 Thailand Trip/"><span>Friend or Other-2002 Thailand Trip</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2002/"><span>Friend or Other-2002</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2003/"><span>Friend or Other-2003</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 1/"><span>Friend or Other-2004 北京交流團</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2008 IndonesiaTrip/"><span>Friend or Other-2008 IndonesiaTrip</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2011/"><span>Friend or Other-2011</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2016/"><span>Friend or Other-2016</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2017/"><span>Friend or Other-2017</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2019 CCBA/"><span>Friend or Other-2019 CCBA</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2019 SnackKing/"><span>Friend or Other-2019 SnackKing</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2020/"><span>Friend or Other-2020</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2021 Featured/"><span>Friend or Other-2021 Featured</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Jenny/Friend or Other-Jenny 2008/"><span>Friend or Other-Jenny</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Joe Lau/Friend or Other-Joe Lau 2007/"><span>Friend or Other-Joe Lau</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Joey Ku/Friend or Other-Joey Ku 2009/"><span>Friend or Other-Joey Ku</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Kylie Marriage/"><span>Friend or Other-Kylie Marriage</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Levia Lee/"><span>Friend or Other-Levia Lee</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-MTR/"><span>Friend or Other-MTR</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Others/"><span>Friend or Other-Others</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Queenie Chan/"><span>Friend or Other-Queenie Chan</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Samantha Or/"><span>Friend or Other-Samantha Or</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Stephanie/"><span>Friend or Other-Stephanie</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Timmy Lok/"><span>Friend or Other-Timmy Lok</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/Hobby/Hobby-2021 Featured/"><span>Hobby-2021 Featured</span></button><button class="button-tabbis" value="Photo/Hobby/Hobby-Recipe/"><span>Hobby-Recipe</span></button><button class="button-tabbis" value="Photo/Hobby/Hobby-佛咭/"><span>Hobby-佛咭</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/Lawrence/Lawrence-2006 Grad/"><span>Lawrence-2006 Grad</span></button><button class="button-tabbis" value="Photo/Lawrence/Lawrence-2008 Grad/"><span>Lawrence-2008 Grad</span></button><button class="button-tabbis" value="Photo/Lawrence/Lawrence-20081110 Grad/"><span>Lawrence-20081110 Grad</span></button><button class="button-tabbis" value="Photo/Lawrence/Lawrence-20081115 Grad/"><span>Lawrence-20081115 Grad</span></button><button class="button-tabbis" value="Photo/Lawrence/Lawrence-20081130 Grad/"><span>Lawrence-20081130 Grad</span></button><button class="button-tabbis" value="Photo/Lawrence/Lawrence-Childhood/"><span>Lawrence-Childhood</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2011/"><span>My Sweet Family-2011</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-20110626 林村許願樹/"><span>My Sweet Family-20110626 林村許願樹</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-20110726 J&L One Month Anniversary/"><span>My Sweet Family-20110726 J&L One Month Anniversary</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-20111224 Sweet XMas Propose/"><span>My Sweet Family-20111224 Sweet XMas Propose</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2012/"><span>My Sweet Family-2012</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-20120626 Swiss Cuisine/"><span>My Sweet Family-20120626 Swiss Cuisine</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-20121004 Birthday/"><span>My Sweet Family-20121004 Birthday</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Birthday/"><span>My Sweet Family-2013 Birthday</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Wedding/"><span>My Sweet Family-2013 Wedding</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013/"><span>My Sweet Family-2013</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2014 Honeymoon/"><span>My Sweet Family-2014 Honeymoon</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2015 Kaylee & Kayden Birth/"><span>My Sweet Family-2015 Kaylee & Kayden Birth</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2016/"><span>My Sweet Family-2016</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2017 Birthday/"><span>My Sweet Family-2017 Birthday</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2017 Valentines Day/"><span>My Sweet Family-2017 Valentines Day</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2018 Lawrence Birthday/"><span>My Sweet Family-2018 Lawrence Birthday</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2018 Ocean Park/"><span>My Sweet Family-2018 Ocean Park</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2018 Twins Birthday/"><span>My Sweet Family-2018 Twins Birthday</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 Fathers Day/"><span>My Sweet Family-2019 Fathers Day</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 Jennies Birthday/"><span>My Sweet Family-2019 Jennies Birthday</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 Mothers Day/"><span>My Sweet Family-2019 Mothers Day</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 Twins Birthday/"><span>My Sweet Family-2019 Twins Birthday</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 Valentines Day/"><span>My Sweet Family-2019 Valentines Day</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 京都大阪遊/"><span>My Sweet Family-2019 京都大阪遊</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-20190525 Disneyland HK/"><span>My Sweet Family-20190525 Disneyland HK</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2020 Jennie Birthday/"><span>My Sweet Family-2020 Jennie Birthday</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2020 Luner New Year/"><span>My Sweet Family-2020 Luner New Year</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2021 Featured/"><span>My Sweet Family-2021 Featured</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/Relative-HO/Relative-HO-2014/"><span>Relative-HO-2014</span></button><button class="button-tabbis" value="Photo/Relative-HO/Relative-HO-2015/"><span>Relative-HO-2015</span></button><button class="button-tabbis" value="Photo/Relative-HO/Relative-HO-2016/"><span>Relative-HO-2016</span></button><button class="button-tabbis" value="Photo/Relative-HO/Relative-HO-2017-Australia Trip/"><span>Relative-HO-2017-Australia Trip</span></button><button class="button-tabbis" value="Photo/Relative-HO/Relative-HO-2018/"><span>Relative-HO-2018</span></button><button class="button-tabbis" value="Photo/Relative-HO/Relative-HO-2019/"><span>Relative-HO-2019</span></button><button class="button-tabbis" value="Photo/Relative-HO/Relative-HO-2020/"><span>Relative-HO-2020</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/Relative-WONG/Relative-WONG-2008/"><span>Relative-WONG-2008</span></button><button class="button-tabbis" value="Photo/Relative-WONG/Relative-WONG-20090127-Luner New Year/"><span>Relative-WONG-20090127-Luner New Year</span></button><button class="button-tabbis" value="Photo/Relative-WONG/Relative-WONG-2014/"><span>Relative-WONG-2014</span></button><button class="button-tabbis" value="Photo/Relative-WONG/Relative-WONG-2016/"><span>Relative-WONG-2016</span></button><button class="button-tabbis" value="Photo/Relative-WONG/Relative-WONG-2017/"><span>Relative-WONG-2017</span></button><button class="button-tabbis" value="Photo/Relative-WONG/Relative-WONG-2019/"><span>Relative-WONG-2019</span></button><button class="button-tabbis" value="Photo/Relative-WONG/Relative-WONG-2020/"><span>Relative-WONG-2020</span></button><button class="button-tabbis" value="Photo/Relative-WONG/Relative-WONG-Father/"><span>Relative-WONG-Father</span></button><button class="button-tabbis" value="Photo/Relative-WONG/Relative-WONG-Mother/"><span>Relative-WONG-Mother</span></button><button class="button-tabbis" value="Photo/Relative-WONG/Relative-WONG-Others/"><span>Relative-WONG-Others</span></button><button class="button-tabbis" value="Photo/Relative-WONG/‎Relative-WONG-2009 Gary/"><span>‎Relative-WONG-2009 Gary</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/Source Material/Source Material/"><span>Source Material</span></button></div></div>'
+//  			+ '<div data-panes><div data-tabs><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2002 Thailand Trip/Friend or Other-2002 Thailand Trip-Day1/"><span>Friend or Other-2002 Thailand Trip-Day1</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2002 Thailand Trip/Friend or Other-2002 Thailand Trip-Day2/"><span>Friend or Other-2002 Thailand Trip-Day2</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2002 Thailand Trip/Friend or Other-2002 Thailand Trip-Day3/"><span>Friend or Other-2002 Thailand Trip-Day3</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2002 Thailand Trip/Friend or Other-2002 Thailand Trip-Day4/"><span>Friend or Other-2002 Thailand Trip-Day4</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2002 Thailand Trip/Friend or Other-2002 Thailand Trip-Day5/"><span>Friend or Other-2002 Thailand Trip-Day5</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 1/"><span>Friend or Other-2004 北京交流團 Day 1</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 2/"><span>Friend or Other-2004 北京交流團 Day 2</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 3/"><span>Friend or Other-2004 北京交流團 Day 3</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 4/"><span>Friend or Other-2004 北京交流團 Day 4</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 5/"><span>Friend or Other-2004 北京交流團 Day 5</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Other/"><span>Friend or Other-2004 北京交流團 Other</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Jenny/Friend or Other-Jenny 2008/"><span>Friend or Other-Jenny 2008</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Jenny/Friend or Other-Jenny 2009/"><span>Friend or Other-Jenny 2009</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Joe Lau/Friend or Other-Joe Lau 2007/"><span>Friend or Other-Joe Lau 2007</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Joe Lau/Friend or Other-Joe Lau Egypt Trip/"><span>Friend or Other-Joe Lau Egypt Trip</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Joey Ku/Friend or Other-Joey Ku 2009/"><span>Friend or Other-Joey Ku 2009</span></button><button class="button-tabbis" value="Photo/Friend or Other/Friend or Other-Joey Ku/Friend or Other-Joey Ku 2010/"><span>Friend or Other-Joey Ku 2010</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Wedding/My Sweet Family-20120701 Pre-Wedding by KTC (Master)/"><span>My Sweet Family-20120701 Pre-Wedding by KTC (Master)</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Wedding/My Sweet Family-20120701 Pre-Wedding by KTC (Retouch)/"><span>My Sweet Family-20120701 Pre-Wedding by KTC (Retouch)</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Wedding/My Sweet Family-20120701 Pre-Wedding by KTC (Snapshot)/"><span>My Sweet Family-20120701 Pre-Wedding by KTC (Snapshot)</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Wedding/My Sweet Family-20120825 Pre-Wedding by UWeddings/"><span>My Sweet Family-20120825 Pre-Wedding by UWeddings</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Wedding/My Sweet Family-20121207 Wedding Accessory DIY Class/"><span>My Sweet Family-20121207 Wedding Accessory DIY Class</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Wedding/My Sweet Family-2013 Big Day/"><span>My Sweet Family-2013 Big Day</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Wedding/My Sweet Family-2013 For Wedding Video/"><span>My Sweet Family-2013 For Wedding Video</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Wedding/My Sweet Family-2013 Other/"><span>My Sweet Family-2013 Other</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Wedding/My Sweet Family-2013 Pre-Wedding/"><span>My Sweet Family-2013 Pre-Wedding</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2013 Wedding/My Sweet Family-2013 Propose Marriage/"><span>My Sweet Family-2013 Propose Marriage</span></button></div><div data-tabs><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 京都大阪遊/My Sweet Family-2019 京都大阪遊-20190324/"><span>My Sweet Family-2019 京都大阪遊-20190324</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 京都大阪遊/My Sweet Family-2019 京都大阪遊-20190325/"><span>My Sweet Family-2019 京都大阪遊-20190325</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 京都大阪遊/My Sweet Family-2019 京都大阪遊-20190326/"><span>My Sweet Family-2019 京都大阪遊-20190326</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 京都大阪遊/My Sweet Family-2019 京都大阪遊-20190327/"><span>My Sweet Family-2019 京都大阪遊-20190327</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 京都大阪遊/My Sweet Family-2019 京都大阪遊-20190328/"><span>My Sweet Family-2019 京都大阪遊-20190328</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 京都大阪遊/My Sweet Family-2019 京都大阪遊-20190329/"><span>My Sweet Family-2019 京都大阪遊-20190329</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 京都大阪遊/My Sweet Family-2019 京都大阪遊-20190330/"><span>My Sweet Family-2019 京都大阪遊-20190330</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 京都大阪遊/My Sweet Family-2019 京都大阪遊-Featured/"><span>My Sweet Family-2019 京都大阪遊-Featured</span></button><button class="button-tabbis" value="Photo/My Sweet Family/My Sweet Family-2019 京都大阪遊/My Sweet Family-2019 京都大阪遊-夢館/"><span>My Sweet Family-2019 京都大阪遊-夢館</span></button></div></div>';
  </script>
 
 
 
 	<script src="./../common/js/lawrence/tabbis-initializer.js"></script>
 	<script>	
-	var tabbisVideo = genTabbis(videoS3Keylist, 'video');
- 	$('#video-tabbis').html(tabbisVideo);
-//	$('#video-tabbis').html(tabbisVideoTemp);
-// 	var tabbisPhoto = genTabbis(photoS3Keylist, 'photo');
-//	$('#photo-tabbis').html(tabbisPhoto);
+ 	var tabbisVideo = genTabbis(videoS3Keylist, 'video');
+// 	tabbisVideoAry = tabbisVideo.split('[#@#]');
+//  $('#video-tabbis').html(tabbisVideoAry[0]);
+//	$('#video-tabbis').html(tabbisVideo);	
+ 	
+ //	var tabbisPhoto = genTabbis(photoS3Keylist, 'photo');
+ //	$('#photo-tabbis').html(tabbisPhoto);
+//  $('#photo-tabbis').html(testTabbisString);
+//$('#photo-tabbis').html(tabbisPhoto);
+ 
 </script>
 	<script src="../tabbis.js/assets/js/dist/tabbis.es6.min.js"></script>
 	<script src="./../common/js/lawrence/tabbis-controller.js"></script>
