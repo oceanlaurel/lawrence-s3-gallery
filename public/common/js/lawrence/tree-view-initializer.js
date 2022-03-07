@@ -39,11 +39,11 @@ function genTreeViews(json, type) {
 		console.log('Total ' + type + ' file amount: ' + fileCount);
 	}
 
-//	if (isDebug) {
-		for (i = 0; i < itemPathListArray.length; i++) {
-			console.log('itemPathListArray[' + i + ']: ' + itemPathListArray[i]);
-		}
-//	}
+	//	if (isDebug) {
+	for (i = 0; i < itemPathListArray.length; i++) {
+		console.log('itemPathListArray[' + i + ']: ' + itemPathListArray[i]);
+	}
+	//	}
 
 	treeView = genTreeViewStructure(itemPathListArray, "Videos");
 
@@ -134,7 +134,7 @@ function genTreeViewStructure(itemPathListArray, figcaption) {
 							if (-1 < foundAtTreeNumber) {
 								try {
 									if (-1 == treeView[j].indexOf((valuePrefix + currentLiValue), 0)) {
-										treeView[foundAtTreeNumber] += getReserveLabel(currentLiValue, true) + "<li value=\"" + valuePrefix + currentLiValue + "\"><code>" + currentLabel + "</code>" + getReserveLabel(currentLiValue, false);
+										treeView[foundAtTreeNumber] += getReserveLabel(currentLiValue, true) + "<li value=\"" + valuePrefix + currentLiValue + "\"><code>" + currentLabel + "</code>" /*+ getReserveLabel(currentLiValue, false)*/;
 									}
 								} catch (err) {
 									console.log(err);
@@ -181,18 +181,58 @@ function genTreeViewStructure(itemPathListArray, figcaption) {
 
 	var fullTreeView = "";
 	for (i = 0; i < treeView.length; i++) {
-		console.log("treeView[" + i + "]: " + treeView[i]);
-		fullTreeView += setTreeViewStructure(treeView[i]) + "[[[TREE]]]";
+		//		fullTreeView += setTreeViewStructure(treeView[i]) + "[[[TREE]]]";
+		tunedTree = setTreeViewStructure(treeView[i]) + "[[[TREE]]]";
+		console.log("Tree View[" + i + "]: " + tunedTree);
+		fullTreeView += tunedTree + "[[[TREE]]]";
 	}
-	
-	return fullTreeView;	
+
+	return fullTreeView;
 }
 
 function setTreeViewStructure(tree) {
-	treeBranch = tree.split("HEAD#");
+	const valuePrefix = "KEY=";
+	const branchSplitSign = "HEAD#";
+
+	treeBranch = tree.split(branchSplitSign);
 	for (branchIndex = 1; branchIndex < treeBranch.length; branchIndex++) {
-//			
+		previousBranchKEY = getKeyFromTreeBranch(treeBranch[branchIndex - 1]);
+		previousBranchKEYSubKeys = previousBranchKEY.split("/");
+		currentBranchKEY = getKeyFromTreeBranch(treeBranch[branchIndex]);
+		currentBranchKEYSubKeys = currentBranchKEY.split("/");
+
+		currentBranchKEY = currentBranchKEY.replace(valuePrefix, "");
+		replaceTargetLabel = getReserveLabel(currentBranchKEY, true);
+		treeBranch[branchIndex] = branchSplitSign + treeBranch[branchIndex];
+
+		if (previousBranchKEYSubKeys.length == currentBranchKEYSubKeys.length) {
+			treeBranch[branchIndex] = treeBranch[branchIndex].replace(replaceTargetLabel, "</li>");
+		} else if (previousBranchKEYSubKeys.length < currentBranchKEYSubKeys.length) {
+			treeBranch[branchIndex] = treeBranch[branchIndex].replace(replaceTargetLabel, "<ul>");
+		} else if (previousBranchKEYSubKeys.length > currentBranchKEYSubKeys.length) {
+			downLevelString = "";
+			for (downStep = 0; downStep < (previousBranchKEYSubKeys.length - currentBranchKEYSubKeys.length); downStep++) {
+				downLevelString += "</li></ul></li>";
+			}
+			treeBranch[branchIndex] = treeBranch[branchIndex].replace(replaceTargetLabel, downLevelString);
+		}
 	}
+
+	tree = "";
+	for (branchIndex = 0; branchIndex < treeBranch.length; branchIndex++) {
+		tree += treeBranch[branchIndex];
+	}
+
+	firstBranchKEY = getKeyFromTreeBranch(treeBranch[0]);
+	firstBranchKEYSubKeys = firstBranchKEY.split("/");
+	lastBranchKEY = getKeyFromTreeBranch(treeBranch[(treeBranch.length - 1)]);
+	lastBranchKEYSubKeys = lastBranchKEY.split("/");
+	downLevelString = "";
+	for (downStep = 0; downStep < (previousBranchKEYSubKeys.length - currentBranchKEYSubKeys.length); downStep++) {
+		downLevelString += "</li></ul></li>";
+	}
+	tree += downLevelString + "</ul></figure>";
+
 	return tree;
-} 
+}
 

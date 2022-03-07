@@ -283,11 +283,12 @@ body {
 				</ul></li>
 		</ul>
 	</figure>
+	
 	<!-- Lawrence ]] -->
 
 	<!-- tabbis.js - [[ -->
 
-	<div id="video-tabbis"></div>
+	<div id="video-trees"></div>
 	<br>
 	<hr>
 	<br>
@@ -497,6 +498,13 @@ var contentpoc2 = '<section id="examples" class="section">'+
 	<script src="./../common/js/lawrence/tree-view-initializer.js"></script>
 	<script>	
  	var videoTreeViews = genTreeViews(videoS3Keylist, 'video');
+  	trees = videoTreeViews.split("[[[TREE]]]");
+  	videoTrees = "";
+  	for (i = 0; i < trees.length; i++) {
+  		videoTrees += trees[i];
+  	}
+  	document.getElementById("video-trees").innerHTML = videoTrees;
+ 	
 //  	var photoTreeViews = genTreeViews(photoS3Keylist, 'video');
  	
 // 	tabbisVideoAry = tabbisVideo.split('[#@#]');
