@@ -17,7 +17,8 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 <!-- ]] - glightbox -->
 <!-- Lawrence - [[ -->
-<link rel="stylesheet" href="./../common/css/button.css" />
+<link rel="stylesheet" href="./../common/css/tree-view-button.css" />
+<link rel="stylesheet" href="./../common/css/tree-view.css" />
 <!-- Lawrence - ]] -->
 <title>Lawrence S3 Gallery | My Sweet Memories</title>
 
@@ -27,96 +28,7 @@
 <!-- ]] -->
 
 <!-- Lawrence [[ -->
-<style>
-body {
-	font-family: Calibri, Segoe, "Segoe UI", "Gill Sans", "Gill Sans MT",
-		sans-serif;
-}
 
-/* It's supposed to look like a tree diagram */
-.tree, .tree ul, .tree li {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	position: relative;
-}
-
-.tree {
-	margin: 0 0 1em;
-	text-align: center;
-}
-
-.tree, .tree ul {
-	display: table;
-}
-
-.tree ul {
-	width: 100%;
-}
-
-.tree li {
-	display: table-cell;
-	padding: .5em 0;
-	vertical-align: top;
-}
-/* _________ */
-.tree li:before {
-	outline: solid 1px #666;
-	content: "";
-	left: 0;
-	position: absolute;
-	right: 0;
-	top: 0;
-}
-
-.tree li:first-child:before {
-	left: 50%;
-}
-
-.tree li:last-child:before {
-	right: 50%;
-}
-
-.tree code, .tree span {
-	border: solid .1em #666;
-	border-radius: .2em;
-	display: inline-block;
-	margin: 0 .2em .5em;
-	padding: .2em .5em;
-	position: relative;
-}
-/* If the tree represents DOM structure */
-.tree code {
-	font-family: monaco, Consolas, 'Lucida Console', monospace;
-}
-
-/* | */
-.tree ul:before, .tree code:before, .tree span:before {
-	outline: solid 1px #666;
-	content: "";
-	height: .5em;
-	left: 50%;
-	position: absolute;
-}
-
-.tree ul:before {
-	top: -.5em;
-}
-
-.tree code:before, .tree span:before {
-	top: -.55em;
-}
-
-/* The root node doesn't connect upwards */
-.tree>li {
-	margin-top: 0;
-}
-
-.tree>li:before, .tree>li:after, .tree>li>code:before, .tree>li>span:before
-	{
-	outline: none;
-}
-</style>
 <!-- Lawrence ]] -->
 
 <script src="./../common/js/jquery-3.6.0.min.js"></script>
@@ -205,48 +117,13 @@ body {
 	</div>
 
 	<!-- Lawrence [[ -->
-	<figure>
-		<figcaption>Example DOM structure diagram</figcaption>
-		<ul class="tree">
-			<li><code>Video</code>
-				<ul>
-					<li><code>Friend or Other</code>
-						<ul>
-							<li value="123"><code>Friend or Other-2003</code></li>
-							<li><code>Friend or Other-2004 北京交流團</code>
-								<ul>
-									<li><code>Friend or Other-2004 北京交流團 Day 1</code></li>
-									<li><code>Friend or Other-2004 北京交流團 Day 2</code></li>
-									<li><code>Friend or Other-2004 北京交流團 Day 3</code></li>
-									<li><code>Friend or Other-2004 北京交流團 Day 4</code></li>
-									<li><code>Friend or Other-2004 北京交流團 Day 5</code></li>
-								</ul></li>
-							<li><code>Friend or Other-2016</code>
-								<ul>
-									<li><code>Friend or Other-2016 1</code></li>
-									<li><code>Friend or Other-2016 2</code>
-										<ul>
-											<li><code>Friend or Other-2016 2-1</code></li>
-										</ul></li>
-									</li>
-								</ul></li>
-							</li>
-							<li><code>Friend or Other-Other</code></li>
-							<li><code>Friend or Other-Team building</code></li>
-						</ul></li>
-					<li><code>Hobby</code>
-						<ul>
-							<li><code>Hobby</code></li>
-						</ul></li>
-				</ul></li>
-		</ul>
-	</figure>
+
 	<figure>
 		<figcaption>Example sitemap</figcaption>
 		<ul class="tree">
-			<li><span><button class="button-tabbis"
+			<li><span><button class="tree-view-button" onclick="switchTreeViewPanel(this)"
 						value="Video/Friend or Other/Friend or Other-2003/">
-						<span>Home</span>
+						<span style="border: none;">Home</span>
 					</button></span>
 				<ul>
 					<li><span>About us</span>
@@ -288,17 +165,18 @@ body {
 
 	<!-- tabbis.js - [[ -->
 
+	<hr>
 	<div id="video-trees"></div>
 	<br>
 	<hr>
+	<hr>
 	<br>
-	<div id="photo-tabbis"></div>
+	<div id="photo-trees"></div>
 	<br>
-
+	<hr>
 
 
 	<script>
-// document.addEventListener('DOMContentLoaded', doSomething, false);
 
 var contentpoc2 = '<section id="examples" class="section">'+
       '		<div class="container">'+
@@ -368,128 +246,6 @@ var contentpoc2 = '<section id="examples" class="section">'+
       '		</div>'+
       '	</section>';
 
-// function doSomething () {
-	var videopoc = '<section class="section">'+
-		'		<div class="container">'+
-		'			<div class="row">'+
-		'				<div class="col-md-12">'+
-		'					<h3>'+
-		'						<i class="fa fa-video-camera heading-icon" aria-hidden="true"></i>'+
-		'						Videos Gallery 2'+
-		'					</h3>'+
-		'					<p>'+
-		'						You can add videos with optional autoplay for <strong>Vimeo</strong>'+
-		'						, <strong>Youtube</strong> and <strong>self hosted videos</strong>'+
-		'						. You can specify a default width for the videos or set different'+
-		'						widths to each video in your gallery. The videos are 100%'+
-		'						responsive and will play correctly on mobile devices.'+
-		'					</p>'+
-		''+
-		'					<ul class="box-container three-cols">'+
-		'						<li class="box">'+
-		'							<div class="inner">'+
-		'								<a href="https://vimeo.com/115041822" class="glightbox3"> <img'+
-		'									src="demo/img/small/gm10.jpg" alt="image" />'+
-		'								</a>'+
-		'							</div>'+
-		'						</li>'+
-		'						<li class="box">'+
-		'							<div class="inner">'+
-		'								<a href="https://www.youtube-nocookie.com/embed/Ga6RYejo6Hk"'+
-		'									class="glightbox3"> <img src="demo/img/small/gm11.jpg"'+
-		'									alt="image" />'+
-		'								</a>'+
-		'							</div>'+
-		'						</li>'+
-		'						<li class="box">'+
-		'							<div class="inner">'+
-		'								<a href="./demo/pexels-video-1550080.mp4" class="glightbox3">'+
-		'									<img src="demo/img/small/gm12.jpg" alt="image" />'+
-		'								</a>'+
-		'							</div>'+
-		'						</li>'+
-		'						<li class="box">'+
-		'							<div class="inner">'+
-		'								<a'+
-		'									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"'+
-		'									class="glightbox3"> <video width="300" height="200"'+
-		'										id="video"'+
-		'										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"'+
-		'										type="video/mp4" controls></video>'+
-		'									<source'+
-		'										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"'+
-		'										type="video/mp4"> </video>'+
-		'								</a>'+
-		'							</div>'+
-		'						</li>'+
-		'						<li class="box">'+
-		'							<div class="inner">'+
-		'								<a'+
-		'									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
-		'									class="glightbox3"> <video width="300" height="200"'+
-		'										poster="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
-		'										controls>'+
-		'										<source'+
-		'											src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
-		'											type="video/mp4">'+
-		'									</video>'+
-		'								</a>'+
-		'							</div>'+
-		'						</li>'+
-		'						<li class="box">'+
-		'							<div class="inner">'+
-		'								<a'+
-		'									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
-		'									class="glightbox3"> <video width="300" height="200"'+
-		'										id="video"'+
-		'										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
-		'										type="video/mp4" controls></video>'+
-		'									<source'+
-		'										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"'+
-		'										type="video/mp4"> </video>'+
-		'								</a>'+
-		'							</div>'+
-		'						</li>'+
-		'					</ul>'+
-		'				</div>'+
-		'			</div>'+
-		'		</div>'+
-		'	</section>';
-			
-
-	
-// 		var tabbisVideoPoc = '<div>'
-// 			// 0:
-// 			+ '<div data-tabs>' 
-// 				+ '<button data-active>Photo</button>'	
-// 				+ '<button>Video</button>'	
-// 			+ '</div>'	
-// 			// 1:
-// 			+ '<div data-panes>'
-// 				+ '<div data-tabs>'
-// 					+ '<button data-active>My Sweet Family</button>'	
-// 					+ '<button>Others</button>'					
-// 				+'</div>'
-// 				+ '<div>[Video]</div>'
-// 			+ '</div>'
-// 			// 2:
-// 			+ '<div data-panes>'
-// 				+ '<div data-tabs>'
-// 					+ '<button data-active>My Sweet Family-20190525 Disneyland HK</button>'
-// 					+ '<button onclick="switchTreeViewPanel(this)">My Sweet Family-2020</button>'
-// 					+ '<button onclick="switchTreeViewPanel(this)">My Sweet Family-2021 Featured</button>'			
-// 				+'</div>'
-// 				+ '<div>[Others]</div>'
-// 			+ '</div>'
-			
-// 			+ '<div data-panes>'
-// 				+ '<div data-active>My Sweet Family-20190525 Disneyland HK-002.jpg......</div>'
-// 				+ '<div>'+contentpoc2+'</div>'
-// 				+ '<div>'+contentpoc2+'</div>'
-// 			+ '</div>'			
-	 			
-//  			+ '</div>';
-		 
 
 </script>
 
@@ -497,13 +253,22 @@ var contentpoc2 = '<section id="examples" class="section">'+
 
 	<script src="./../common/js/lawrence/tree-view-initializer.js"></script>
 	<script>	
- 	var videoTreeViews = genTreeViews(videoS3Keylist, 'video');
+ 	var videoTreeViews = genTreeViews(videoS3Keylist, 'Video');
   	trees = videoTreeViews.split("[[[TREE]]]");
   	videoTrees = "";
   	for (i = 0; i < trees.length; i++) {
   		videoTrees += trees[i];
   	}
   	document.getElementById("video-trees").innerHTML = videoTrees;
+  	
+  	
+ 	var photoTreeViews = genTreeViews(photoS3Keylist, 'Photo');
+  	trees = photoTreeViews.split("[[[TREE]]]");
+  	photoTrees = "";
+  	for (i = 0; i < trees.length; i++) {
+  		photoTrees += trees[i];
+  	}
+  	document.getElementById("photo-trees").innerHTML = photoTrees;  	
  	
 //  	var photoTreeViews = genTreeViews(photoS3Keylist, 'video');
  	
@@ -518,7 +283,7 @@ var contentpoc2 = '<section id="examples" class="section">'+
  
 </script>
 <!-- 	<script src="../tabbis.js/assets/js/dist/tabbis.es6.min.js"></script> -->
-<!-- 	<script src="./../common/js/lawrence/tree-view-controller.js"></script> -->
+<script src="./../common/js/lawrence/tree-view-controller.js"></script>
 
 	<script> 
 //       tabbis({

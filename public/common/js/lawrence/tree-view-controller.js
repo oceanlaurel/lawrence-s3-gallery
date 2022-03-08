@@ -1,10 +1,5 @@
-tabbis({
-	memory: true
-});
 
 function switchTreeViewPanel(obj) {
-
-	//	$('#'+obj.id).html(content);
 
 	var url = window.location.href;
 	if (url.indexOf('?') > -1) {
@@ -14,10 +9,11 @@ function switchTreeViewPanel(obj) {
 		const urlParams = new URLSearchParams(queryString);
 		const param = urlParams.get('tabselected');
 
-		newurl = url.replace(param, obj.id);
+//		newurl = url.replace(param, obj.id);
+		newurl = url.replace(param, obj.value);
 		window.history.replaceState(null, null, newurl);
 	} else {
-		url += '?tabselected=' + obj.id;
+		url += '?key=' + obj.value;
 		window.history.replaceState(null, null, url);
 	}
 	window.location.reload();

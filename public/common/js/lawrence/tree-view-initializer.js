@@ -16,8 +16,6 @@ function genTreeViews(json, type) {
 			itemPathList += key + ',';
 			if (isDebug) console.log('name: ' + buttonName[key]);
 
-			//			buttonList[buttonIndex][0] = (key.split('/').length - 1) - 1;
-			//			console.log('Level: ' + buttonList[buttonIndex][0]);
 		} else {
 			if (isDebug) console.log('Type: file');
 			nameAry = key.split('/');
@@ -39,27 +37,15 @@ function genTreeViews(json, type) {
 		console.log('Total ' + type + ' file amount: ' + fileCount);
 	}
 
-	//	if (isDebug) {
-	for (i = 0; i < itemPathListArray.length; i++) {
-		console.log('itemPathListArray[' + i + ']: ' + itemPathListArray[i]);
+	if (isDebug) {
+		for (i = 0; i < itemPathListArray.length; i++) {
+			console.log('itemPathListArray[' + i + ']: ' + itemPathListArray[i]);
+		}
 	}
-	//	}
 
-	treeView = genTreeViewStructure(itemPathListArray, "Videos");
+	treeView = genTreeViewStructure(itemPathListArray, type);
 
 	return treeView;
-}
-
-String.prototype.replaceLast = function(search, replace) {
-	try {
-		return this.replace(new RegExp(search + "([^" + search + "]*)$"), replace + "$1");
-	} catch (err) {
-		console.log('String.prototype.replaceLast - Error: ');
-		console.log('Error message: ' + err.message);
-		console.log('Parameter - search: ' + search);
-		console.log('Parameter - replace: ' + replace);
-		throw 'String.prototype.replaceLast - Error: ' + err.message;
-	}
 }
 
 function getReserveLabel(value, isHead) {
@@ -84,7 +70,8 @@ function getKeyFromTreeBranch(treeViewBranch) {
 
 function genTreeViewStructure(itemPathListArray, figcaption) {
 
-	console.log("genTreeViewStructure:");
+	const isDebug = false;
+	if (isDebug) console.log("genTreeViewStructure:");
 	itemPathListArray.sort();
 
 	const valuePrefix = "KEY=";
@@ -104,10 +91,6 @@ function genTreeViewStructure(itemPathListArray, figcaption) {
 			currentKEYSubKeys = currentKEY.split("/");
 			if (2 < currentKEYSubKeys.length) {
 				if (!bIsInitialTrees) {
-
-					if (0 == "Video/Relative-WONG/Relative-WONG-2019/".localeCompare(currentKEY)) {
-						console.log("Debug");
-					}
 
 					if (3 < currentKEYSubKeys.length) {
 						foundItemInCurrentLevel = false;
@@ -181,9 +164,10 @@ function genTreeViewStructure(itemPathListArray, figcaption) {
 
 	var fullTreeView = "";
 	for (i = 0; i < treeView.length; i++) {
-		//		fullTreeView += setTreeViewStructure(treeView[i]) + "[[[TREE]]]";
 		tunedTree = setTreeViewStructure(treeView[i]) + "[[[TREE]]]";
-		console.log("Tree View[" + i + "]: " + tunedTree);
+		if (isDebug) {
+			console.log("Tree View[" + i + "]: " + tunedTree);
+		}
 		fullTreeView += tunedTree + "[[[TREE]]]";
 	}
 

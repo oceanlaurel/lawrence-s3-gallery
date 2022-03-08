@@ -1,4 +1,4 @@
-.button-tabbis {
+.tree-view-button {
 	display: inline-block;
 	border: 2px solid #9494b8;
 	border-radius: 5px;
@@ -6,22 +6,22 @@
 	color: #9999ff;
 	  text-align: center;
 	  font-size: 16px;
-	padding: 2px;
+	padding: 0px;
 /* 	width: 200px; */
 	transition: all 0.5s;
 	cursor: pointer;
-	margin: 2px 2px;
+	margin: 0px 0px;
 	vertical-align: middle;
 }
 
-.button-tabbis span {
+.tree-view-button span {
 	cursor: pointer;
 	display: inline-block;
 	position: relative;
 	transition: 0.5s;
 }
 
-.button-tabbis span:after {
+.tree-view-button span:after {
 	content: '\00bb';
 	position: absolute;
 	opacity: 0;
@@ -30,11 +30,11 @@
 	transition: 0.5s;
 }
 
-.button-tabbis:hover span {
+.tree-view-button:hover span {
 	padding-right: 25px;
 }
 
-.button-tabbis:hover span:after {
+.tree-view-button:hover span:after {
 	opacity: 1;
 	right: 0;
 }
