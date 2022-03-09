@@ -51,8 +51,8 @@ body {
 	border: solid .1em #666;
 	border-radius: .2em;
 	display: inline-block;
-	margin: 0 .2em .5em;
-	padding: .2em .5em;
+	margin: 0 .2em .2em;
+	padding: .2em .2em;
 	position: relative;
 }
 /* If the tree represents DOM structure */
