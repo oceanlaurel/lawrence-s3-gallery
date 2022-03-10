@@ -118,9 +118,9 @@ function genTreeViewStructure(itemPathListArray, figcaption) {
 								try {
 									if (-1 == treeView[j].indexOf((valuePrefix + currentLiValue), 0)) {
 										// treeView[foundAtTreeNumber] += getReserveLabel(currentLiValue, true) + "<li value=\"" + valuePrefix + currentLiValue + "\"><code>" + currentLabel + "</code>" /*+ getReserveLabel(currentLiValue, false)*/;
-										treeView[foundAtTreeNumber] += getReserveLabel(currentLiValue, true) + "<li value=\"" + valuePrefix + currentLiValue + "\"><code>" 
-										+ "<button class=\"tree-view-button\" onclick=\"switchTreeViewPanel(this)\" id=\"" + valuePrefix + currentLiValue + "\">"
-										+ "<span style=\"border: none;\">" + currentLabel + "</span></button></code>";
+										treeView[foundAtTreeNumber] += getReserveLabel(currentLiValue, true) + "<li value=\"" + valuePrefix + currentLiValue + "\"><code>"
+											+ "<button class=\"tree-view-button\" onclick=\"switchTreeViewPanel(this, '" + figcaption + "')\" id=\"" + valuePrefix + currentLiValue + "\">"
+											+ "<span style=\"border: none;\">" + currentLabel + "</span></button></code>";
 									}
 								} catch (err) {
 									console.log(err);
@@ -140,16 +140,16 @@ function genTreeViewStructure(itemPathListArray, figcaption) {
 						liValue = currentKEYSubKeys[0] + "/" + currentKEYSubKeys[1] + "/";
 						if (typeof (treeView[treeNumber]) != "undefined") {
 							treeNumber++;
-							treeView[treeNumber] = "<figure><figcaption>" + figcaption + " - " + currentLabel + "</figcaption><ul class=\"tree\">";
+							treeView[treeNumber] = "<figure><figcaption id=\"" + figcaption + "\">" + figcaption + " - " + currentLabel + "</figcaption><ul class=\"tree\">";
 							treeView[treeNumber] += "<li value=\"" + valuePrefix + liValue + "\"><code>"
-								+ "<button class=\"tree-view-button\" onclick=\"switchTreeViewPanel(this)\" id=\"" + valuePrefix + liValue + "\">"
+								+ "<button class=\"tree-view-button\" onclick=\"switchTreeViewPanel(this, '" + figcaption + "')\" id=\"" + valuePrefix + liValue + "\">"
 								+ "<span style=\"border: none;\">" + currentLabel + "</span></button></code>";
 							previousLv1Label = currentLabel;
 							foundItemInCurrentLevel = true;
 						} else {
-							treeView[treeNumber] = "<figure><figcaption>" + figcaption + " - " + currentLabel + "</figcaption><ul class=\"tree\">";
+							treeView[treeNumber] = "<figure><figcaption id=\"" + figcaption + "\">" + figcaption + " - " + currentLabel + "</figcaption><ul class=\"tree\">";
 							treeView[treeNumber] += "<li value=\"" + valuePrefix + liValue + "\"><code>"
-								+ "<button class=\"tree-view-button\" onclick=\"switchTreeViewPanel(this)\" id=\"" + valuePrefix + liValue + "\">"
+								+ "<button class=\"tree-view-button\" onclick=\"switchTreeViewPanel(this, '" + figcaption + "')\" id=\"" + valuePrefix + liValue + "\">"
 								+ "<span style=\"border: none;\">" + currentLabel + "</span></button></code>";
 							previousLv1Label = currentLabel;
 							foundItemInCurrentLevel = true;

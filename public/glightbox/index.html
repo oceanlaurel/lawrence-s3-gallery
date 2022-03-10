@@ -16,10 +16,12 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 <!-- ]] - glightbox -->
+
 <!-- Lawrence - [[ -->
 <link rel="stylesheet" href="./../common/css/tree-view-button.css" />
 <link rel="stylesheet" href="./../common/css/tree-view.css" />
 <!-- Lawrence - ]] -->
+
 <title>Lawrence S3 Gallery | My Sweet Memories</title>
 
 <!-- Key list by GenerateGalleryPathList Lambda - [[ -->
@@ -210,7 +212,7 @@ var contentpoc2 = '<section id="examples" class="section">'+
 
 	<script src="./../common/js/lawrence/tree-view-initializer.js"></script>
 	<script>	
- 	var videoTreeViews = genTreeViews(videoS3Keylist, 'Video');
+ 	var videoTreeViews = genTreeViews(videoS3Keylist, 'VIDEO');
   	trees = videoTreeViews.split("[[[TREE]]]");
   	videoTrees = "";
   	for (i = 0; i < trees.length; i++) {
@@ -219,7 +221,7 @@ var contentpoc2 = '<section id="examples" class="section">'+
   	document.getElementById("video-trees").innerHTML = videoTrees;
   	
   	
- 	var photoTreeViews = genTreeViews(photoS3Keylist, 'Photo');
+ 	var photoTreeViews = genTreeViews(photoS3Keylist, 'PHOTO');
   	trees = photoTreeViews.split("[[[TREE]]]");
   	photoTrees = "";
   	for (i = 0; i < trees.length; i++) {
