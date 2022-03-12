@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<?xml version="1.0" encoding="utf-8"?>
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <!-- <meta name="viewport" -->
@@ -29,36 +30,14 @@
 <script src="./../config/photo-key-list.json"></script>
 <!-- ]] -->
 
-<!-- Lawrence [[ -->
-
-<!-- Lawrence ]] -->
-
 <script src="./../common/js/jquery-3.6.0.min.js"></script>
-
 <script>
 	var isDebug = true;
 	if (isDebug) {
 		console.log("Total video key in S3 bucket: " + videoS3Keylist.file_list.length);
 		console.log("Total photo key in S3 bucket: " + photoS3Keylist.file_list.length);
 	}
-	
-	
-	// const txt = '{"name":"John", "age":30, "city":"New York"}'
-	// 	const txt2 = '{"file_list":[{"item_number" : 1,"object_summary" : {"bucket_name" : "lawrencewong-gallery","key" : "Video/"}},{"item_number" : 2,"object_summary" : {"bucket_name" : "lawrencewong-gallery","key" : "Video/Friend or Other/"}}]}'
-	// 	const obj = JSON.parse(txt2);
-	
-	// 	document.getElementById("demo").innerHTML = obj.file_list[0].item_number 
-	// 	+ ", " + obj.file_list[0].object_summary.bucket_name + ", " + obj.file_list[0].object_summary.key
-	// 	+ "<BR>"
-	// 	+ obj.file_list[1].item_number 
-	// 	+ ", " + obj.file_list[1].object_summary.bucket_name + ", " + obj.file_list[1].object_summary.key
-	// 	+ "<BR>Length: " + obj.file_list.length;
-	
-	// 1, lawrencewong-gallery, Video/
-	// 2, lawrencewong-gallery, Video/Friend or Other/
-	// Length: 2
-	
-	</script>
+</script>
 </head>
 
 <body>
@@ -119,19 +98,19 @@
 	</div>
 
 	<!-- Lawrence [[ -->
-	
+
 	<!-- Lawrence ]] -->
 
 	<!-- tabbis.js - [[ -->
 
 	<hr>
 	<div id="video-trees"></div>
-	<br>
+	<br />
 	<hr>
 	<hr>
-	<br>
+	<br />
 	<div id="photo-trees"></div>
-	<br>
+	<br />
 	<hr>
 
 
@@ -211,38 +190,62 @@ var contentpoc2 = '<section id="examples" class="section">'+
 
 
 	<script src="./../common/js/lawrence/tree-view-initializer.js"></script>
-	<script>	
- 	var videoTreeViews = genTreeViews(videoS3Keylist, 'VIDEO');
-  	trees = videoTreeViews.split("[[[TREE]]]");
-  	videoTrees = "";
-  	for (i = 0; i < trees.length; i++) {
-  		videoTrees += trees[i];
-  	}
+	<script>
+	/* 
+	localStorage/sessionStorage:
+	Reference: https://www.w3schools.com/html/html5_webstorage.asp
+	
+	Remove Item: localStorage.removeItem("videoTrees");
+	 */
+	// Prepare video trees button:
+	var videoTrees = null;
+	if (typeof(Storage) !== "undefined") {
+		if (null == sessionStorage.getItem("videoTrees")) {
+			const videoTreeViews = genTreeViews(videoS3Keylist, 'VIDEO');
+			const trees = videoTreeViews.split("[[[TREE]]]");
+			var videoTrees = "";
+			for (i = 0; i < trees.length; i++) {
+		  		videoTrees += trees[i];
+		  	}
+			sessionStorage.setItem("videoTrees", videoTrees);
+		}
+		videoTrees = sessionStorage.getItem("videoTrees");
+	} else {
+		const videoTreeViews = genTreeViews(videoS3Keylist, 'VIDEO');
+		const trees = videoTreeViews.split("[[[TREE]]]");
+		var videoTrees = "";
+		for (i = 0; i < trees.length; i++) {
+	  		videoTrees += trees[i];
+	  	}
+	}
   	document.getElementById("video-trees").innerHTML = videoTrees;
   	
-  	
- 	var photoTreeViews = genTreeViews(photoS3Keylist, 'PHOTO');
-  	trees = photoTreeViews.split("[[[TREE]]]");
-  	photoTrees = "";
-  	for (i = 0; i < trees.length; i++) {
-  		photoTrees += trees[i];
-  	}
-  	document.getElementById("photo-trees").innerHTML = photoTrees;  	
- 	
-//  	var photoTreeViews = genTreeViews(photoS3Keylist, 'video');
- 	
-// 	tabbisVideoAry = tabbisVideo.split('[#@#]');
-//  $('#video-tabbis').html(tabbisVideoAry[0]);
-//	$('#video-tabbis').html(tabbisVideo);	
- 	
- //	var tabbisPhoto = genTabbis(photoS3Keylist, 'photo');
- //	$('#photo-tabbis').html(tabbisPhoto);
-//  $('#photo-tabbis').html(testTabbisString);
-//$('#photo-tabbis').html(tabbisPhoto);
- 
-</script>
-<!-- 	<script src="../tabbis.js/assets/js/dist/tabbis.es6.min.js"></script> -->
-<script src="./../common/js/lawrence/tree-view-controller.js"></script>
+ 	// Prepare photo trees button:
+  	var photoTreeViews = null;
+  	if (typeof(Storage) !== "undefined") {
+		if (null == sessionStorage.getItem("photoTrees")) {
+			const photoTreeViews = genTreeViews(photoS3Keylist, 'PHOTO');
+			const trees = photoTreeViews.split("[[[TREE]]]");
+			var photoTrees = "";
+			for (i = 0; i < trees.length; i++) {
+				photoTrees += trees[i];
+		  	}
+			sessionStorage.setItem("photoTrees", photoTrees);
+		}
+		photoTrees = sessionStorage.getItem("photoTrees");
+	} else {
+		const photoTreeViews = genTreeViews(photoS3Keylist, 'PHOTO');
+		const trees = photoTreeViews.split("[[[TREE]]]");
+		var photoTrees = "";
+		for (i = 0; i < trees.length; i++) {
+			photoTrees += trees[i];
+	  	}
+	}
+  	document.getElementById("photo-trees").innerHTML = photoTrees;
+	</script>
+
+	<!-- 	<script src="../tabbis.js/assets/js/dist/tabbis.es6.min.js"></script> -->
+	<script src="./../common/js/lawrence/tree-view-controller.js"></script>
 
 	<script> 
 //       tabbis({
@@ -271,74 +274,77 @@ var contentpoc2 = '<section id="examples" class="section">'+
      </script>
 	<!-- ]] - tabbis.js -->
 
-	<!-- Simple images example -->
-	<section id="photos" class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h3>
-						<i class="fa fa-camera-retro heading-icon" aria-hidden="true"></i>
-						Simple Image Gallery
-					</h3>
+	<H2>Simple images example</H2>
+	<div id="divpoc">
+		<!-- Simple images example -->
+		<section id="photos-section" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<h3>
+							<i class="fa fa-camera-retro heading-icon" aria-hidden="true"></i>
+							Simple Image Gallery
+						</h3>
 
-					<ul class="box-container three-cols">
-						<li class="box">
-							<div class="inner">
-								<a href="demo/img/large/gm1.jpg" class="glightbox"> <img
-									src="demo/img/small/gm1.jpg" alt="image" />
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a href="demo/img/large/gm2.jpg" class="glightbox"> <img
-									src="demo/img/small/gm2.jpg" alt="image" />
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a href="demo/img/large/gm3.jpg" class="glightbox"> <img
-									src="demo/img/small/gm3.jpg" alt="image" />
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a href="demo/img/large/gm4.jpg" class="glightbox"> <img
-									src="demo/img/small/gm4.jpg" alt="image" />
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a href="demo/img/large/gm5.jpg" class="glightbox"> <img
-									src="demo/img/small/gm5.jpg" alt="image" />
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a href="demo/img/large/gm6.jpg" class="glightbox"> <img
-									src="demo/img/small/gm6.jpg" alt="image" />
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a
-									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
-									class="glightbox"> <img
-									src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
-									alt="image" />
-								</a>
-							</div>
-						</li>
-					</ul>
+						<ul class="box-container three-cols">
+							<li class="box">
+								<div class="inner">
+									<a href="demo/img/large/gm1.jpg" class="glightbox"> <img
+										src="demo/img/small/gm1.jpg" alt="image" />
+									</a>
+								</div>
+							</li>
+							<li class="box">
+								<div class="inner">
+									<a href="demo/img/large/gm2.jpg" class="glightbox"> <img
+										src="demo/img/small/gm2.jpg" alt="image" />
+									</a>
+								</div>
+							</li>
+							<li class="box">
+								<div class="inner">
+									<a href="demo/img/large/gm3.jpg" class="glightbox"> <img
+										src="demo/img/small/gm3.jpg" alt="image" />
+									</a>
+								</div>
+							</li>
+							<li class="box">
+								<div class="inner">
+									<a href="demo/img/large/gm4.jpg" class="glightbox"> <img
+										src="demo/img/small/gm4.jpg" alt="image" />
+									</a>
+								</div>
+							</li>
+							<li class="box">
+								<div class="inner">
+									<a href="demo/img/large/gm5.jpg" class="glightbox"> <img
+										src="demo/img/small/gm5.jpg" alt="image" />
+									</a>
+								</div>
+							</li>
+							<li class="box">
+								<div class="inner">
+									<a href="demo/img/large/gm6.jpg" class="glightbox"> <img
+										src="demo/img/small/gm6.jpg" alt="image" />
+									</a>
+								</div>
+							</li>
+							<li class="box">
+								<div class="inner">
+									<a
+										href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
+										class="glightbox"> <img
+										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
+										alt="image" />
+									</a>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+	</div>
 
 	<!-- Images with description example -->
 	<section class="section pair">
@@ -441,7 +447,7 @@ var contentpoc2 = '<section id="examples" class="section">'+
 	</section>
 
 	<!-- Videos example -->
-	<section class="section">
+	<section id="videos-section" class="section">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">

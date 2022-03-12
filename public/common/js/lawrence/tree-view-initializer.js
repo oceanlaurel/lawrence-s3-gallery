@@ -1,4 +1,5 @@
 function genTreeViews(json, type) {
+	console.log('genTreeViews() - Type: ' + type);
 
 	const isDebug = false;
 	var itemPathList = "";
