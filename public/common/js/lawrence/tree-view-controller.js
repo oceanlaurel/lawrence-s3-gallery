@@ -1,27 +1,103 @@
+function genExhibitItems(json, folderKey, type) {
+	console.log('genExhibitItems() - Folder Key: ' + folderKey);
 
-//localStorage.setItem("videoLightboxItems", videoLightboxItems);
-//var videoLightboxItems = localStorage.getItem("videoLightboxItems");
-//if (0 == videoLightboxItems.localeCompare("undefined")) {
-//	videoLightboxItems = [];
-//} else {
-//	alert(videoLightboxItems["KEY=Video/Hobby/"]);
-//}
-//
-//localStorage.setItem("photoLightboxItems", photoLightboxItems);
-//var photoLightboxItems = localStorage.getItem("photoLightboxItems");
-//if (0 == photoLightboxItems.localeCompare("undefined")) {
-//	photoLightboxItems = [];
-//} 
+	const isDebug = false;
 
-//function getTreeLeaveLightboxItem(mediaType, key) {
-//	if (0 == "VIDEO".localeCompare(mediaType.toUpperCase().trim())) {
-//		videoLightboxItems[key] = key /*videoTreeViews*/;
-//		alert(videoLightboxItems[key]);
-//	} else if (0 == "PHOTO".localeCompare(mediaType.toUpperCase().trim())) {
-//		photoLightboxItems[key] = key /*photoTreeViews*/;
-//		alert(photoLightboxItems[key]);
-//	}
-//}
+	if (null == json || null == folderKey) {
+		return null;
+	} else {
+		folderKey = folderKey.trim();
+	}
+
+	const contentHead = '<div id="exhibit-items"><section class="section"><div class="container"><div class="row"><h3>' + type + ' gallery</h3>'
+		+ '<h6>Key: "' + folderKey + '"</h6><ul class="box-container three-cols">';
+
+	const contentTail = '</ul></div></div></div></section></div>';
+
+	var exhibitItems = '';
+	var bFileItemFound = false;
+	for (i = 0; i < json.file_list.length; i++) {
+		var key = json.file_list[i].object_summary.key;
+		key = key.trim();
+		if (isDebug) console.log(i + ') Key: ' + key);
+
+		if (0 != '/'.localeCompare(key[(key.length - 1)])) {
+			// Handle file keys only:
+			if (-1 != key.indexOf(folderKey, 0)
+				&& key.split('/').length == folderKey.split('/').length) {
+
+				if (0 == 'PHOTO'.localeCompare(type)) {
+					const fullURL = galleryRootURL + key;
+					exhibitItems += '<li class="box"><div class="inner"><a href="' + fullURL + '" class="glightbox"><img src="' + fullURL
+						+ '" alt="image" /></a></div><a href="' + fullURL + '" target="_blank" download>Download &darr;</a></li>';
+
+					bFileItemFound = true;
+				} else if (0 == 'VIDEO'.localeCompare(type)) {
+					const fullURL = galleryRootURL + key;
+
+					var fileExt = '';
+					const filePart = key.split('.');
+					if (null != filePart && filePart.length > 1) {
+						fileExt = filePart[(filePart.length - 1)];
+						fileExt = fileExt.toLowerCase();
+					}
+
+					exhibitItems += '<li class="box"><div class="inner"><a href="'
+						+ fullURL + '" class="glightbox3"><video width="300" height="200" src="' + fullURL + '" type="video/' + fileExt + '" controls></video>'
+						+ '<source src="' + fullURL + '" type="video/' + fileExt + '"></source></a></div><a href="' + fullURL + '" target="_blank" download>Download &darr;</a></li>';
+
+					bFileItemFound = true;
+				}
+			}
+		}
+	}
+
+	if (bFileItemFound) {
+		return contentHead + exhibitItems + contentTail;
+	} else {
+		return '<div id="exhibit-items"><h3>No media within this folder!</h3></div>';
+	}
+
+}
+
+
+function getTreeNodeData(videoS3KeylistJson, photoS3KeylistJson) {
+
+	const url = window.location.href;
+	if (url.indexOf('?') > -1) {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		var key = decodeURI(urlParams.get('key'));
+		var type = decodeURI(urlParams.get('type'));
+
+		var treeNodeData = null;
+		const storageKey = type + '##' + key;
+		if (typeof (Storage) !== "undefined") {
+			if (null == sessionStorage.getItem(storageKey)) {
+				var result = '';
+
+				//?type=PHOTO&key=Photo/Friend%20or%20Other/Friend%20or%20Other-2004%20北京交流團/Friend%20or%20Other-2004%20北京交流團%20Day%203/
+				//Photo/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 3/
+				if (null != key && null != type) {
+					type = type.trim();
+					key = key.trim();
+					if (0 == 'PHOTO'.localeCompare(type)) {
+						result = genExhibitItems(photoS3KeylistJson, key, 'PHOTO');
+					} else if (0 == 'VIDEO'.localeCompare(type)) {
+						result = genExhibitItems(videoS3KeylistJson, key, 'VIDEO');
+					}
+				}
+
+				sessionStorage.setItem(storageKey, result);
+				//				sessionStorage.setItem(storageKey, poc);
+			}
+			treeNodeData = sessionStorage.getItem(storageKey);
+		} else {
+			treeNodeData = 'poc:' + storageKey;
+		}
+		document.getElementById("exhibition-hall").innerHTML = treeNodeData;
+	}
+}
 
 function switchTreeViewPanel(obj, mediaType) {
 
@@ -46,13 +122,13 @@ function switchTreeViewPanel(obj, mediaType) {
 			bIsReloadRequired = true;
 		}
 	} else {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
+		url += '?type=' + mediaType + '&key=' + (obj.id).replace('KEY=', '');
+
+		const urlParams = new URLSearchParams(url);
 		if ((decodeURI(urlParams.get('type'))) === "null") {
 			bIsReloadRequired = true;
 		}
 
-		url += '?type=' + mediaType + '&key=' + (obj.id).replace('KEY=', '');
 		window.history.replaceState(null, null, url);
 	}
 
@@ -76,15 +152,15 @@ $(document).ready(function() {
 	console.log('key=' + key);
 
 	if (null != type && null != key) {
-		
+
 		if (0 == 'PHOTO'.localeCompare(type.trim().toUpperCase())) {
-			var element = document.getElementById("photos-section");
+			var element = document.getElementById("exhibition-hall");
 			element.scrollIntoView();
 		} else if (0 == 'VIDEO'.localeCompare(type.trim().toUpperCase())) {
-			var element = document.getElementById("videos-section");
+			var element = document.getElementById("exhibition-hall");
 			element.scrollIntoView();
 		}
-		
+
 	}
 
 });

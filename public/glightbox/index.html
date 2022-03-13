@@ -21,6 +21,7 @@
 <!-- Lawrence - [[ -->
 <link rel="stylesheet" href="./../common/css/tree-view-button.css" />
 <link rel="stylesheet" href="./../common/css/tree-view.css" />
+<script src="./../config/common.conf"></script>
 <!-- Lawrence - ]] -->
 
 <title>Lawrence S3 Gallery | My Sweet Memories</title>
@@ -104,89 +105,17 @@
 	<!-- tabbis.js - [[ -->
 
 	<hr>
-	<div id="video-trees"></div>
-	<br />
-	<hr>
-	<hr>
-	<br />
 	<div id="photo-trees"></div>
 	<br />
 	<hr>
-
-
-	<script>
-
-var contentpoc2 = '<section id="examples" class="section">'+
-      '		<div class="container">'+
-      '			<div class="row">'+
-      '				<div class="col-md-12">'+
-      '					<h3>'+
-      '						<i class="fa fa-camera-retro heading-icon" aria-hidden="true"></i>'+
-      '						Simple Image Gallery 2!'+
-      '					</h3>'+
-      ''+
-      '					<ul class="box-container three-cols">'+
-      '						<li class="box">'+
-      '							<div class="inner">'+
-      '								<a href="demo/img/large/gm1.jpg" class="glightbox"> <img'+
-      '									src="demo/img/small/gm1.jpg" alt="image" />'+
-      '								</a>'+
-      '							</div>'+
-      '						</li>'+
-      '						<li class="box">'+
-      '							<div class="inner">'+
-      '								<a href="demo/img/large/gm2.jpg" class="glightbox"> <img'+
-      '									src="demo/img/small/gm2.jpg" alt="image" />'+
-      '								</a>'+
-      '							</div>'+
-      '						</li>'+
-      '						<li class="box">'+
-      '							<div class="inner">'+
-      '								<a href="demo/img/large/gm3.jpg" class="glightbox"> <img'+
-      '									src="demo/img/small/gm3.jpg" alt="image" />'+
-      '								</a>'+
-      '							</div>'+
-      '						</li>'+
-      '						<li class="box">'+
-      '							<div class="inner">'+
-      '								<a href="demo/img/large/gm4.jpg" class="glightbox"> <img'+
-      '									src="demo/img/small/gm4.jpg" alt="image" />'+
-      '								</a>'+
-      '							</div>'+
-      '						</li>'+
-      '						<li class="box">'+
-      '							<div class="inner">'+
-      '								<a href="demo/img/large/gm5.jpg" class="glightbox"> <img'+
-      '									src="demo/img/small/gm5.jpg" alt="image" />'+
-      '								</a>'+
-      '							</div>'+
-      '						</li>'+
-      '						<li class="box">'+
-      '							<div class="inner">'+
-      '								<a href="demo/img/large/gm6.jpg" class="glightbox"> <img'+
-      '									src="demo/img/small/gm6.jpg" alt="image" />'+
-      '								</a>'+
-      '							</div>'+
-      '						</li>'+
-      '						<li class="box">'+
-      '							<div class="inner">'+
-      '								<a'+
-      '									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"'+
-      '									class="glightbox"> <img'+
-      '									src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"'+
-      '									alt="image" />'+
-      '								</a>'+
-      '							</div>'+
-      '						</li>'+
-      '					</ul>'+
-      '				</div>'+
-      '			</div>'+
-      '		</div>'+
-      '	</section>';
-
-
-</script>
-
+	<hr>
+	<br />
+	<div id="video-trees"></div>
+	<br />
+	<hr>
+	<br />
+	<div id="exhibition-hall"></div>
+	<hr>
 
 
 	<script src="./../common/js/lawrence/tree-view-initializer.js"></script>
@@ -248,333 +177,275 @@ var contentpoc2 = '<section id="examples" class="section">'+
 	<script src="./../common/js/lawrence/tree-view-controller.js"></script>
 
 	<script> 
-//       tabbis({
-//         memory: true
-//       });
-      
-//       $(document).ready(function(){	
-//  		 $("#tab-0-2").click(function() {
-//  			 //alert("tab3 clicked");
-//  			 $('#tabpanel-0-2').html(contentpoc2);	
-//  			var url = window.location.href;    
-// //  			if (url.indexOf('?') > -1){
-// //  			   url += '&param=1'
-// //  			}else{
-//  			   url += '?param=1'
-// //  			}
-//  			window.location.href = url;
-//  			alert(url);
-//  			window.location.reload();
-//  			 tabbis({
-//  		          memory: false
-//  		      });
-//  	     });
-//  	});
+	getTreeNodeData(videoS3Keylist, photoS3Keylist);	
       
      </script>
 	<!-- ]] - tabbis.js -->
 
-	<H2>Simple images example</H2>
-	<div id="divpoc">
-		<!-- Simple images example -->
-		<section id="photos-section" class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<h3>
-							<i class="fa fa-camera-retro heading-icon" aria-hidden="true"></i>
-							Simple Image Gallery
-						</h3>
+	
+<!-- 	<div id="divpoc"> -->
+	
+<!-- 		<!-- Simple images example --> -->
+<!-- 		<H2>Simple images example</H2> -->
+<!-- 		<section id="photos-section" class="section"> -->
+<!-- 			<div class="container"> -->
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col-md-12"> -->
+<!-- 						<h3> -->
+<!-- 							<i class="fa fa-camera-retro heading-icon" aria-hidden="true"></i> -->
+<!-- 							Simple Image Gallery -->
+<!-- 						</h3> -->
 
-						<ul class="box-container three-cols">
-							<li class="box">
-								<div class="inner">
-									<a href="demo/img/large/gm1.jpg" class="glightbox"> <img
-										src="demo/img/small/gm1.jpg" alt="image" />
-									</a>
-								</div>
-							</li>
-							<li class="box">
-								<div class="inner">
-									<a href="demo/img/large/gm2.jpg" class="glightbox"> <img
-										src="demo/img/small/gm2.jpg" alt="image" />
-									</a>
-								</div>
-							</li>
-							<li class="box">
-								<div class="inner">
-									<a href="demo/img/large/gm3.jpg" class="glightbox"> <img
-										src="demo/img/small/gm3.jpg" alt="image" />
-									</a>
-								</div>
-							</li>
-							<li class="box">
-								<div class="inner">
-									<a href="demo/img/large/gm4.jpg" class="glightbox"> <img
-										src="demo/img/small/gm4.jpg" alt="image" />
-									</a>
-								</div>
-							</li>
-							<li class="box">
-								<div class="inner">
-									<a href="demo/img/large/gm5.jpg" class="glightbox"> <img
-										src="demo/img/small/gm5.jpg" alt="image" />
-									</a>
-								</div>
-							</li>
-							<li class="box">
-								<div class="inner">
-									<a href="demo/img/large/gm6.jpg" class="glightbox"> <img
-										src="demo/img/small/gm6.jpg" alt="image" />
-									</a>
-								</div>
-							</li>
-							<li class="box">
-								<div class="inner">
-									<a
-										href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
-										class="glightbox"> <img
-										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
-										alt="image" />
-									</a>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</section>
-	</div>
+<!-- 						<ul class="box-container three-cols"> -->
+<!-- 							<li class="box"> -->
+<!-- 								<div class="inner"> -->
+<!-- 									<a href="demo/img/large/gm1.jpg" class="glightbox"> <img -->
+<!-- 										src="demo/img/small/gm1.jpg" alt="image" /> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 							</li> -->
+<!-- 							<li class="box"> -->
+<!-- 								<div class="inner"> -->
+<!-- 									<a href="demo/img/large/gm2.jpg" class="glightbox"> <img -->
+<!-- 										src="demo/img/small/gm2.jpg" alt="image" /> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 							</li> -->
+<!-- 							<li class="box"> -->
+<!-- 								<div class="inner"> -->
+<!-- 									<a href="demo/img/large/gm3.jpg" class="glightbox"> <img -->
+<!-- 										src="demo/img/small/gm3.jpg" alt="image" /> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 							</li> -->
+<!-- 							<li class="box"> -->
+<!-- 								<div class="inner"> -->
+<!-- 									<a href="demo/img/large/gm4.jpg" class="glightbox"> <img -->
+<!-- 										src="demo/img/small/gm4.jpg" alt="image" /> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 							</li> -->
+<!-- 							<li class="box"> -->
+<!-- 								<div class="inner"> -->
+<!-- 									<a href="demo/img/large/gm5.jpg" class="glightbox"> <img -->
+<!-- 										src="demo/img/small/gm5.jpg" alt="image" /> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 							</li> -->
+<!-- 							<li class="box"> -->
+<!-- 								<div class="inner"> -->
+<!-- 									<a href="demo/img/large/gm6.jpg" class="glightbox"> <img -->
+<!-- 										src="demo/img/small/gm6.jpg" alt="image" /> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 							</li> -->
+<!-- 							<li class="box"> -->
+<!-- 								<div class="inner"> -->
+<!-- 									<a -->
+<!-- 										href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg" -->
+<!-- 										class="glightbox"> <img -->
+<!-- 										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg" -->
+<!-- 										alt="image" /> -->
+<!-- 									</a> -->
+<!-- 								</div> -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</section> -->
+<!-- 	</div> -->
 
 	<!-- Images with description example -->
-	<section class="section pair">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h3>
-						<i class="fa fa-address-card heading-icon" aria-hidden="true"></i>
-						Images with Description
-					</h3>
-					<p>
-						You can add descriptions to your slides, the description position
-						can be set globally for all slides or you can set a different
-						position for each slide. options are: top, bottom, left or right.
-						You can adjust the style the way you want with basic CSS. <strong>The
-							description can display html code</strong> .
-					</p>
+<!-- 	<section class="section pair"> -->
+<!-- 		<div class="container"> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-md-12"> -->
+<!-- 					<h3> -->
+<!-- 						<i class="fa fa-address-card heading-icon" aria-hidden="true"></i> -->
+<!-- 						Images with Description -->
+<!-- 					</h3> -->
+<!-- 					<p> -->
+<!-- 						You can add descriptions to your slides, the description position -->
+<!-- 						can be set globally for all slides or you can set a different -->
+<!-- 						position for each slide. options are: top, bottom, left or right. -->
+<!-- 						You can adjust the style the way you want with basic CSS. <strong>The -->
+<!-- 							description can display html code</strong> . -->
+<!-- 					</p> -->
 
-					<ul class="box-container three-cols">
-						<li class="box">
-							<div class="inner">
-								<a href="demo/img/large/gm7.jpg" class="glightbox2"
-									data-glightbox='title:Description Bottom; description: You can set the position of the description &lt;a href="http://google.com"&gt;with a link to Google&lt;/a&gt;'>
-									<img src="demo/img/small/gm7.jpg" alt="image" />
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a href="demo/img/large/gm8.jpg" class="glightbox2"
-									data-glightbox="title: Description Right; description: .custom-desc1; descPosition: right;">
-									<img src="demo/img/small/gm8.jpg" alt="image" />
-								</a>
+<!-- 					<ul class="box-container three-cols"> -->
+<!-- 						<li class="box"> -->
+<!-- 							<div class="inner"> -->
+<!-- 								<a href="demo/img/large/gm7.jpg" class="glightbox2" -->
+<!-- 									data-glightbox='title:Description Bottom; description: You can set the position of the description &lt;a href="http://google.com"&gt;with a link to Google&lt;/a&gt;'> -->
+<!-- 									<img src="demo/img/small/gm7.jpg" alt="image" /> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
+<!-- 						</li> -->
+<!-- 						<li class="box"> -->
+<!-- 							<div class="inner"> -->
+<!-- 								<a href="demo/img/large/gm8.jpg" class="glightbox2" -->
+<!-- 									data-glightbox="title: Description Right; description: .custom-desc1; descPosition: right;"> -->
+<!-- 									<img src="demo/img/small/gm8.jpg" alt="image" /> -->
+<!-- 								</a> -->
 
-								<div class="glightbox-desc custom-desc1">
-									<p>
-										You can set the position of the description in different ways
-										for example <strong style="text-decoration: underline">top,
-											bottom, left or right</strong>
-									</p>
-									<p>
-										<a href="http://google.com" target="_blank"
-											style="text-decoration: underline; font-weight: bold">Example
-											Google link</a> ipsum vehicula eros ultrices lacinia Vestibulum
-										ante ipsum primis in faucibus orci luctus et ultrices posuere
-										cubilia Curae Duis quis ipsum vehicula eros ultrices lacinia.
-										Vestibulum ante ipsum primis in faucibus orci luctus et
-										ultrices posuere
-									</p>
-									<p>Primis pharetra facilisis lorem quis penatibus ad nulla
-										inceptos, dui per tempor taciti aliquet consequat sodales,
-										curae tristique gravida auctor interdum malesuada sagittis.
-										Felis pretium eros ligula natoque ad ante rutrum himenaeos,
-										adipiscing urna mauris porta quam efficitur odio, sagittis
-										morbi tellus nisi molestie mus faucibus.</p>
-									<p>Primis pharetra facilisis lorem quis penatibus ad nulla
-										inceptos, dui per tempor taciti aliquet consequat sodales,
-										curae tristique gravida auctor interdum malesuada sagittis.
-										Felis pretium eros ligula natoque ad ante rutrum himenaeos,
-										adipiscing urna mauris porta quam efficitur odio, sagittis
-										morbi tellus nisi molestie mus faucibus.</p>
-								</div>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a href="demo/img/large/gm9.jpg" class="glightbox2"
-									data-glightbox="title: Description Left; description: .custom-desc2; descPosition: left;">
-									<img src="demo/img/small/gm9.jpg" alt="image" />
-								</a>
-								<div class="glightbox-desc custom-desc2">
-									<p>You can set the position of the description in different
-										ways for example top, bottom, left or right</p>
-									<p>Duis quis ipsum vehicula eros ultrices lacinia.
-										Vestibulum ante ipsum primis in faucibus orci luctus et
-										ultrices posuere cubilia Curae</p>
-								</div>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a
-									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
-									class="glightbox2"
-									data-glightbox="title: Description Rightt; description: .custom-desc2; descPosition: right;"
-									onclick="alert('clicked');$('#poc01').html('clicked');"> <img
-									src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg"
-									alt="image" />
-								</a>
-								<div class="glightbox-desc custom-desc2">
-									<p>https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg</p>
-									<p>My Sweet Family-2021 Featured-001.jpg</p>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
+<!-- 								<div class="glightbox-desc custom-desc1"> -->
+<!-- 									<p> -->
+<!-- 										You can set the position of the description in different ways -->
+<!-- 										for example <strong style="text-decoration: underline">top, -->
+<!-- 											bottom, left or right</strong> -->
+<!-- 									</p> -->
+<!-- 									<p> -->
+<!-- 										<a href="http://google.com" target="_blank" -->
+<!-- 											style="text-decoration: underline; font-weight: bold">Example -->
+<!-- 											Google link</a> ipsum vehicula eros ultrices lacinia Vestibulum -->
+<!-- 										ante ipsum primis in faucibus orci luctus et ultrices posuere -->
+<!-- 										cubilia Curae Duis quis ipsum vehicula eros ultrices lacinia. -->
+<!-- 										Vestibulum ante ipsum primis in faucibus orci luctus et -->
+<!-- 										ultrices posuere -->
+<!-- 									</p> -->
+<!-- 									<p>Primis pharetra facilisis lorem quis penatibus ad nulla -->
+<!-- 										inceptos, dui per tempor taciti aliquet consequat sodales, -->
+<!-- 										curae tristique gravida auctor interdum malesuada sagittis. -->
+<!-- 										Felis pretium eros ligula natoque ad ante rutrum himenaeos, -->
+<!-- 										adipiscing urna mauris porta quam efficitur odio, sagittis -->
+<!-- 										morbi tellus nisi molestie mus faucibus.</p> -->
+<!-- 									<p>Primis pharetra facilisis lorem quis penatibus ad nulla -->
+<!-- 										inceptos, dui per tempor taciti aliquet consequat sodales, -->
+<!-- 										curae tristique gravida auctor interdum malesuada sagittis. -->
+<!-- 										Felis pretium eros ligula natoque ad ante rutrum himenaeos, -->
+<!-- 										adipiscing urna mauris porta quam efficitur odio, sagittis -->
+<!-- 										morbi tellus nisi molestie mus faucibus.</p> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</li> -->
+<!-- 						<li class="box"> -->
+<!-- 							<div class="inner"> -->
+<!-- 								<a href="demo/img/large/gm9.jpg" class="glightbox2" -->
+<!-- 									data-glightbox="title: Description Left; description: .custom-desc2; descPosition: left;"> -->
+<!-- 									<img src="demo/img/small/gm9.jpg" alt="image" /> -->
+<!-- 								</a> -->
+<!-- 								<div class="glightbox-desc custom-desc2"> -->
+<!-- 									<p>You can set the position of the description in different -->
+<!-- 										ways for example top, bottom, left or right</p> -->
+<!-- 									<p>Duis quis ipsum vehicula eros ultrices lacinia. -->
+<!-- 										Vestibulum ante ipsum primis in faucibus orci luctus et -->
+<!-- 										ultrices posuere cubilia Curae</p> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</li> -->
+<!-- 						<li class="box"> -->
+<!-- 							<div class="inner"> -->
+<!-- 								<a -->
+<!-- 									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg" -->
+<!-- 									class="glightbox2" -->
+<!-- 									data-glightbox="title: Description Rightt; description: .custom-desc2; descPosition: right;" -->
+<!-- 									onclick="alert('clicked');$('#poc01').html('clicked');"> <img -->
+<!-- 									src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg" -->
+<!-- 									alt="image" /> -->
+<!-- 								</a> -->
+<!-- 								<div class="glightbox-desc custom-desc2"> -->
+<!-- 									<p>https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Photo/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-001.jpg</p> -->
+<!-- 									<p>My Sweet Family-2021 Featured-001.jpg</p> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
 
 	<!-- Videos example -->
-	<section id="videos-section" class="section">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<h3>
-						<i class="fa fa-video-camera heading-icon" aria-hidden="true"></i>
-						Videos Gallery
-					</h3>
-					<p>
-						You can add videos with optional autoplay for <strong>Vimeo</strong>
-						, <strong>Youtube</strong> and <strong>self hosted videos</strong>
-						. You can specify a default width for the videos or set different
-						widths to each video in your gallery. The videos are 100%
-						responsive and will play correctly on mobile devices.
-					</p>
+<!-- 	<section id="videos-section" class="section"> -->
+<!-- 		<div class="container"> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-md-12"> -->
+<!-- 					<h3> -->
+<!-- 						<i class="fa fa-video-camera heading-icon" aria-hidden="true"></i> -->
+<!-- 						Videos Gallery -->
+<!-- 					</h3> -->
+<!-- 					<p> -->
+<!-- 						You can add videos with optional autoplay for <strong>Vimeo</strong> -->
+<!-- 						, <strong>Youtube</strong> and <strong>self hosted videos</strong> -->
+<!-- 						. You can specify a default width for the videos or set different -->
+<!-- 						widths to each video in your gallery. The videos are 100% -->
+<!-- 						responsive and will play correctly on mobile devices. -->
+<!-- 					</p> -->
 
-					<ul class="box-container three-cols">
-						<li class="box">
-							<div class="inner">
-								<a href="https://vimeo.com/115041822" class="glightbox3"> <img
-									src="demo/img/small/gm10.jpg" alt="image" />
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a href="https://www.youtube-nocookie.com/embed/Ga6RYejo6Hk"
-									class="glightbox3"> <img src="demo/img/small/gm11.jpg"
-									alt="image" />
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a href="./demo/pexels-video-1550080.mp4" class="glightbox3">
-									<img src="demo/img/small/gm12.jpg" alt="image" />
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a
-									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"
-									class="glightbox3"> <video width="300" height="200"
-										id="video"
-										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"
-										type="video/mp4" controls></video>
-									<source
-										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4"
-										type="video/mp4"> </video>
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a
-									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
-									class="glightbox3"> <video width="300" height="200"
-										poster="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
-										controls>
-										<source
-											src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
-											type="video/mp4">
-									</video>
-								</a>
-							</div>
-						</li>
-						<li class="box">
-							<div class="inner">
-								<a
-									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
-									class="glightbox3"> <video width="300" height="200"
-										id="video"
-										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
-										type="video/mp4" controls></video>
-									<source
-										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4"
-										type="video/mp4"> </video>
-								</a>
-							</div>
-						</li>
-						<!-- 						<li class="box"> -->
-						<!-- 							<div class="inner"> -->
-						<!-- 								<a -->
-						<!-- 									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-01.mp4" -->
-						<!-- 									class="glightbox3"> 									<img src="demo/img/small/gm12.jpg" alt="image" /> -->
-						<!-- 									<video id="videoId" autoplay loop controls width="470" -->
-						<!-- 										height="255"> -->
-						<!-- 										<source -->
-						<!-- 											src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-01.mp4" -->
-						<!-- 											type="video/mp4"> -->
-						<!-- 										Your browser does not support the video tag. -->
-						<!-- 									</video> -->
-						<!-- 								</a> -->
-						<!-- 							</div> -->
-						<!-- 						</li> -->
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
+<!-- 					<ul class="box-container three-cols"> -->
+<!-- 						<li class="box"> -->
+<!-- 							<div class="inner"> -->
+<!-- 								<a href="https://vimeo.com/115041822" class="glightbox3"> <img -->
+<!-- 									src="demo/img/small/gm10.jpg" alt="image" /> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
+<!-- 						</li> -->
+<!-- 						<li class="box"> -->
+<!-- 							<div class="inner"> -->
+<!-- 								<a href="https://www.youtube-nocookie.com/embed/Ga6RYejo6Hk" -->
+<!-- 									class="glightbox3"> <img src="demo/img/small/gm11.jpg" -->
+<!-- 									alt="image" /> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
+<!-- 						</li> -->
+<!-- 						<li class="box"> -->
+<!-- 							<div class="inner"> -->
+<!-- 								<a href="./demo/pexels-video-1550080.mp4" class="glightbox3"> -->
+<!-- 									<img src="demo/img/small/gm12.jpg" alt="image" /> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
+<!-- 						</li> -->
+<!-- 						<li class="box"> -->
+<!-- 							<div class="inner"> -->
+<!-- 								<a -->
+<!-- 									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4" -->
+<!-- 									class="glightbox3"> <video width="300" height="200" -->
+<!-- 										id="video" -->
+<!-- 										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4" -->
+<!-- 										type="video/mp4" controls></video> -->
+<!-- 									<source -->
+<!-- 										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-02.mp4" -->
+<!-- 										type="video/mp4"> </video> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
+<!-- 						</li> -->
+<!-- 						<li class="box"> -->
+<!-- 							<div class="inner"> -->
+<!-- 								<a -->
+<!-- 									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4" -->
+<!-- 									class="glightbox3"> <video width="300" height="200" -->
+<!-- 										poster="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4" -->
+<!-- 										controls> -->
+<!-- 										<source -->
+<!-- 											src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4" -->
+<!-- 											type="video/mp4"> -->
+<!-- 									</video> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
+<!-- 						</li> -->
+<!-- 						<li class="box"> -->
+<!-- 							<div class="inner"> -->
+<!-- 								<a -->
+<!-- 									href="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4" -->
+<!-- 									class="glightbox3"> <video width="300" height="200" -->
+<!-- 										id="video" -->
+<!-- 										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4" -->
+<!-- 										type="video/mp4" controls></video> -->
+<!-- 									<source -->
+<!-- 										src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4" -->
+<!-- 										type="video/mp4"> </video> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
+<!-- 						</li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
 
-	<!-- 	<video width="300" height="200" id="video" -->
-	<!-- 		src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-06.mp4" -->
-	<!-- 		type="video/mp4" controls></video> -->
-	<!-- 	<button onclick="cap()">Capture</button> -->
-	<!-- 	<canvas id="canvas" style="overflow: auto"></canvas> -->
+<!-- 	<canvas id="canvasId"></canvas> -->
 
-
-
-	<!-- 	<video id="videoId" autoplay loop controls> -->
-	<!-- 		<source -->
-	<!-- 			src="https://lawrencewong-gallery.s3.eu-west-2.amazonaws.com/Video/My+Sweet+Family/My+Sweet+Family-2021+Featured/My+Sweet+Family-2021+Featured-01.mp4" -->
-	<!-- 			type="video/mp4"> -->
-	<!-- 		Your browser does not support the video tag. -->
-	<!-- 	</video> -->
-
-	<canvas id="canvasId"></canvas>
-	<!-- 	<img id="imgId" src="" /> -->
-
-	<!-- 	<video width="470" height="255" poster="placeholder.png" controls> -->
-	<!-- 		<source src="video.mp4" type="video/mp4"> -->
-	<!-- 		<source src="video.ogg" type="video/ogg"> -->
-	<!-- 		<source src="video.webm" type="video/webm"> -->
-	<!-- 		<object data="video.mp4" width="470" height="255"> -->
-	<!-- 			<embed src="video.swf" width="470" height="255"> -->
-	<!-- 		</object> -->
-	<!-- 	</video> -->
 
 	<!-- Iframes and inline example -->
 	<section class="section pair">
