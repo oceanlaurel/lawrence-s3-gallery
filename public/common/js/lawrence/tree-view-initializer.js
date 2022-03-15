@@ -9,6 +9,18 @@ function genTreeViews(json, type) {
 
 	for (i = 0; i < json.file_list.length; i++) {
 		var key = json.file_list[i].object_summary.key;
+		
+		var bIsInIgnoreList = false;
+		for (j = 0; j < ignareFolderList.length; j++) {
+			if (-1 != key.indexOf(ignareFolderList[j])) {
+				bIsInIgnoreList = true;
+				break;
+			}
+		}
+		if (bIsInIgnoreList) {
+			continue;
+		}
+		
 		if (isDebug) console.log(i + ') Key: ' + key);
 		if (0 == '/'.localeCompare(key[(key.length - 1)])) {
 			if (isDebug) console.log('Type: folder');
