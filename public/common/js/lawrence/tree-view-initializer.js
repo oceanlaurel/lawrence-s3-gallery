@@ -9,7 +9,7 @@ function genTreeViews(json, type) {
 
 	for (i = 0; i < json.file_list.length; i++) {
 		var key = json.file_list[i].object_summary.key;
-		
+
 		var bIsInIgnoreList = false;
 		for (j = 0; j < ignareFolderList.length; j++) {
 			if (-1 != key.indexOf(ignareFolderList[j])) {
@@ -20,7 +20,7 @@ function genTreeViews(json, type) {
 		if (bIsInIgnoreList) {
 			continue;
 		}
-		
+
 		if (isDebug) console.log(i + ') Key: ' + key);
 		if (0 == '/'.localeCompare(key[(key.length - 1)])) {
 			if (isDebug) console.log('Type: folder');
@@ -182,13 +182,19 @@ function genTreeViewStructure(itemPathListArray, figcaption) {
 
 	} while (foundItemInCurrentLevel && temp < 100);
 
+	const treeViewScrollBoxHead = '<div style="border:1px solid black;height:*;width:*;overflow-y:hidden;overflow-x:scroll;"><p style="width:250%;">';
+	const treeViewScrollBoxTail = '</p></div>';
 	var fullTreeView = "";
 	for (i = 0; i < treeView.length; i++) {
 		tunedTree = setTreeViewStructure(treeView[i]) + "[[[TREE]]]";
 		if (isDebug) {
 			console.log("Tree View[" + i + "]: " + tunedTree);
 		}
-		fullTreeView += tunedTree + "[[[TREE]]]";
+
+
+		fullTreeView += treeViewScrollBoxHead + tunedTree + treeViewScrollBoxTail + "[[[TREE]]]";
+
+
 	}
 
 	return fullTreeView;
