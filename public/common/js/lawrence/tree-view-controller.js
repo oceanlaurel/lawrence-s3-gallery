@@ -42,9 +42,17 @@ function genExhibitItems(json, folderKey, type) {
 						fileExt = fileExt.toLowerCase();
 					}
 
+					var obj = document.createElement('video');
+					//					console.log('Can Play video/' + fileExt + ': ' + obj.canPlayType('video/' + fileExt));
+					var detectCanPlayResult = obj.canPlayType('video/' + fileExt);
+					if (0 == "".localeCompare(detectCanPlayResult)) {
+						detectCanPlayResult = "cannot"
+					}
+
 					exhibitItems += '<li class="box"><div class="inner"><a href="'
 						+ fullURL + '" class="glightbox3"><video width="300" height="200" src="' + fullURL + '" type="video/' + fileExt + '" controls></video>'
-						+ '<source src="' + fullURL + '" type="video/' + fileExt + '"></source></a></div><a href="' + fullURL + '" target="_blank" download>Download &darr;</a></li>';
+						+ '<source src="' + fullURL + '" type="video/' + fileExt + '"></source></a></div><a href="' + fullURL + '" target="_blank" download>Download &darr;</a>Type: video/'
+						+ fileExt + '<br /> Your browser can play? ' + detectCanPlayResult + '</li>';
 
 					bFileItemFound = true;
 				}
