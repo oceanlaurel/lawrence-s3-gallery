@@ -1,7 +1,7 @@
 function genTreeViews(json, type) {
 	console.log('genTreeViews() - Type: ' + type);
 
-	const isDebug = true;
+	const isDebug = false;
 	var itemPathList = "";
 	const buttonName = [];
 	const itemName = [];
