@@ -10,10 +10,6 @@ function genTreeViews(json, type) {
 	for (i = 0; i < json.file_list.length; i++) {
 		var key = json.file_list[i].object_summary.key;
 
-		if (-1 != key.indexOf('Photo/My Sweet Family/My Sweet Family-2022/')) {
-			console.log(key);
-		}
-
 		var bIsInIgnoreList = false;
 		for (j = 0; j < ignareFolderList.length; j++) {
 			if (-1 != key.indexOf(ignareFolderList[j])) {
@@ -91,7 +87,7 @@ function genTreeViewStructure(itemPathListArray, figcaption) {
 	if (isDebug) console.log("genTreeViewStructure:");
 	itemPathListArray.sort();
 
-	const valuePrefix = "KEY=";
+	const valuePrefix = "KEY_";
 
 	var treeNumber = 0;
 	var treeView = [];
@@ -195,9 +191,7 @@ function genTreeViewStructure(itemPathListArray, figcaption) {
 			console.log("Tree View[" + i + "]: " + tunedTree);
 		}
 
-
 		fullTreeView += treeViewScrollBoxHead + tunedTree + treeViewScrollBoxTail + "[[[TREE]]]";
-
 
 	}
 
@@ -205,7 +199,7 @@ function genTreeViewStructure(itemPathListArray, figcaption) {
 }
 
 function setTreeViewStructure(tree) {
-	const valuePrefix = "KEY=";
+	const valuePrefix = "KEY_";
 	const branchSplitSign = "HEAD#";
 
 	treeBranch = tree.split(branchSplitSign);

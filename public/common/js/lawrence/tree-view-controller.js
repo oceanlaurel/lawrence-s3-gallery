@@ -84,8 +84,6 @@ function getTreeNodeData(videoS3KeylistJson, photoS3KeylistJson) {
 			if (null == sessionStorage.getItem(storageKey)) {
 				var result = '';
 
-				//?type=PHOTO&key=Photo/Friend%20or%20Other/Friend%20or%20Other-2004%20北京交流團/Friend%20or%20Other-2004%20北京交流團%20Day%203/
-				//Photo/Friend or Other/Friend or Other-2004 北京交流團/Friend or Other-2004 北京交流團 Day 3/
 				if (null != key && null != type) {
 					type = type.trim();
 					key = key.trim();
@@ -118,19 +116,19 @@ function switchTreeViewPanel(obj, mediaType) {
 		const urlParams = new URLSearchParams(queryString);
 		const paramkey = decodeURI(urlParams.get('key'));
 		const paramtype = decodeURI(urlParams.get('type'));
-		//"KEY=Video/My Sweet Family/My Sweet Family-2017 Featured/"
+		//"KEY_Video/My Sweet Family/My Sweet Family-2017 Featured/"
 
-		if (0 != paramkey.trim().localeCompare((obj.id).replace('KEY=', '').trim())) {
+		if (0 != paramkey.trim().localeCompare((obj.id).replace('KEY_', '').trim())) {
 			//			getTreeLeaveLightboxItem(mediaType, obj.id);
 
-			newurl = decodeURI(url).replace(paramkey, (obj.id).replace('KEY=', ''));
+			newurl = decodeURI(url).replace(paramkey, (obj.id).replace('KEY_', ''));
 			newurl = newurl.replace(('?type=' + paramtype), ('?type=' + mediaType));
 			//		newurl = url.replace(param, obj.value);
 			window.history.replaceState(null, null, newurl);
 			bIsReloadRequired = true;
 		}
 	} else {
-		url += '?type=' + mediaType + '&key=' + (obj.id).replace('KEY=', '');
+		url += '?type=' + mediaType + '&key=' + (obj.id).replace('KEY_', '');
 
 		const urlParams = new URLSearchParams(url);
 		if ((decodeURI(urlParams.get('type'))) === "null") {
@@ -148,7 +146,14 @@ function switchTreeViewPanel(obj, mediaType) {
 
 $(document).ready(function() {
 	//window.scrollTo(0, 500);
-	const queryString = window.location.search;
+//	window.location.hash = window.location.hash.replace('#photo-trees', '')
+//		.replace('#video-trees', '')
+//		.replace('#exhibition-hall', '')
+//		.replace('#specifications', '')
+//		.replace('#copyright', '');
+
+	var queryString = window.location.search;
+	
 	const urlParams = new URLSearchParams(queryString);
 
 	console.log('Parameters:');
@@ -168,7 +173,10 @@ $(document).ready(function() {
 			var element = document.getElementById("exhibition-hall");
 			element.scrollIntoView();
 		}
-
+		
+		const selectedMediaCategoryObjKey = "KEY_" + key;
+		var selectedMediaCategoryObj = document.getElementById(selectedMediaCategoryObjKey);
+		selectedMediaCategoryObj.style.color = "black";
+		selectedMediaCategoryObj.style.backgroundColor = "#ccccff";
 	}
-
 });
