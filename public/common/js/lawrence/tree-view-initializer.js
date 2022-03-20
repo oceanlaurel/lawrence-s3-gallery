@@ -1,7 +1,7 @@
 function genTreeViews(json, type) {
 	console.log('genTreeViews() - Type: ' + type);
 
-	const isDebug = false;
+	const isDebug = true;
 	var itemPathList = "";
 	const buttonName = [];
 	const itemName = [];
@@ -9,6 +9,10 @@ function genTreeViews(json, type) {
 
 	for (i = 0; i < json.file_list.length; i++) {
 		var key = json.file_list[i].object_summary.key;
+
+		if (-1 != key.indexOf('Photo/My Sweet Family/My Sweet Family-2022/')) {
+			console.log(key);
+		}
 
 		var bIsInIgnoreList = false;
 		for (j = 0; j < ignareFolderList.length; j++) {
@@ -33,7 +37,7 @@ function genTreeViews(json, type) {
 			if (isDebug) console.log('Type: file');
 			nameAry = key.split('/');
 
-			if (1 == itemPathList.split(nameAry[(nameAry.length - 2)]).length) {
+			if (1 == itemPathList.split(nameAry[(nameAry.length - 2)] + '/').length) {
 				buttonName[key] = nameAry[(nameAry.length - 2)];
 				itemPathList += key.replace((nameAry[(nameAry.length - 1)]), "") + ',';
 			}

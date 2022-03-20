@@ -26,21 +26,21 @@ function genExhibitItems(json, folderKey, type) {
 			if (-1 != key.indexOf(folderKey, 0)
 				&& key.split('/').length == folderKey.split('/').length) {
 
+				var fileExt = '';
+				const filePart = key.split('.');
+				if (null != filePart && filePart.length > 1) {
+					fileExt = filePart[(filePart.length - 1)];
+					fileExt = fileExt.toLowerCase();
+				}
+
 				if (0 == 'PHOTO'.localeCompare(type)) {
 					const fullURL = galleryRootURL + key;
 					exhibitItems += '<li class="box"><div class="inner"><a href="' + fullURL + '" class="glightbox"><img src="' + fullURL
-						+ '" alt="image" /></a></div><a href="' + fullURL + '" target="_blank" download>Download &darr;</a></li>';
+						+ '" alt="image" /></a></div><a href="' + fullURL + '" target="_blank" download>Download &darr;</a>Type: image/' + fileExt + '</li>';
 
 					bFileItemFound = true;
 				} else if (0 == 'VIDEO'.localeCompare(type)) {
 					const fullURL = galleryRootURL + key;
-
-					var fileExt = '';
-					const filePart = key.split('.');
-					if (null != filePart && filePart.length > 1) {
-						fileExt = filePart[(filePart.length - 1)];
-						fileExt = fileExt.toLowerCase();
-					}
 
 					var obj = document.createElement('video');
 					//					console.log('Can Play video/' + fileExt + ': ' + obj.canPlayType('video/' + fileExt));
