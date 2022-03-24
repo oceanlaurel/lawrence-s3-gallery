@@ -27,16 +27,23 @@ function genExhibitItems(json, folderKey, type) {
 				&& key.split('/').length == folderKey.split('/').length) {
 
 				var fileExt = '';
-				const filePart = key.split('.');
-				if (null != filePart && filePart.length > 1) {
-					fileExt = filePart[(filePart.length - 1)];
+				const fileParts = key.split('.');
+				if (null != fileParts && fileParts.length > 1) {
+					fileExt = fileParts[(fileParts.length - 1)];
 					fileExt = fileExt.toLowerCase();
+				}
+
+				var fileName = '';
+				const filePathParts = key.split('/');
+				if (null != filePathParts && filePathParts.length > 1) {
+					fileName = filePathParts[(filePathParts.length - 1)];
 				}
 
 				if (0 == 'PHOTO'.localeCompare(type)) {
 					const fullURL = galleryRootURL + key;
 					exhibitItems += '<li class="box"><div class="inner"><a href="' + fullURL + '" class="glightbox"><img src="' + fullURL
-						+ '" alt="image" /></a></div><a href="' + fullURL + '" target="_blank" download>Download &darr;</a>Type: image/' + fileExt + '</li>';
+						+ '" alt="image" /></a></div><br />' + fileName + '<a href="' + fullURL + '" target="_blank" download>Download &darr;</a>Type: image/' + fileExt
+						+ '</li>';
 
 					bFileItemFound = true;
 				} else if (0 == 'VIDEO'.localeCompare(type)) {
@@ -51,8 +58,8 @@ function genExhibitItems(json, folderKey, type) {
 
 					exhibitItems += '<li class="box"><div class="inner"><a href="'
 						+ fullURL + '" class="glightbox3"><video width="300" height="200" src="' + fullURL + '" type="video/' + fileExt + '" controls></video>'
-						+ '<source src="' + fullURL + '" type="video/' + fileExt + '"></source></a></div><a href="' + fullURL + '" target="_blank" download>Download &darr;</a>Type: video/'
-						+ fileExt + '<br /> Your browser can play? ' + detectCanPlayResult + '</li>';
+						+ '<source src="' + fullURL + '" type="video/' + fileExt + '"></source></a></div><br />' + fileName + '<a href="' + fullURL + '" target="_blank" download>Download &darr;</a>Type: video/'
+						+ fileExt + '<br /> Current browser can play? ' + detectCanPlayResult + '</li>';
 
 					bFileItemFound = true;
 				}
@@ -146,14 +153,14 @@ function switchTreeViewPanel(obj, mediaType) {
 
 $(document).ready(function() {
 	//window.scrollTo(0, 500);
-//	window.location.hash = window.location.hash.replace('#photo-trees', '')
-//		.replace('#video-trees', '')
-//		.replace('#exhibition-hall', '')
-//		.replace('#specifications', '')
-//		.replace('#copyright', '');
+	//	window.location.hash = window.location.hash.replace('#photo-trees', '')
+	//		.replace('#video-trees', '')
+	//		.replace('#exhibition-hall', '')
+	//		.replace('#specifications', '')
+	//		.replace('#copyright', '');
 
 	var queryString = window.location.search;
-	
+
 	const urlParams = new URLSearchParams(queryString);
 
 	console.log('Parameters:');
@@ -173,7 +180,7 @@ $(document).ready(function() {
 			var element = document.getElementById("exhibition-hall");
 			element.scrollIntoView();
 		}
-		
+
 		const selectedMediaCategoryObjKey = "KEY_" + key;
 		var selectedMediaCategoryObj = document.getElementById(selectedMediaCategoryObjKey);
 		selectedMediaCategoryObj.style.color = "black";
