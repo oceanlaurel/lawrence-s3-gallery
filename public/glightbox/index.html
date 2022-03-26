@@ -27,17 +27,57 @@
 <title>Lawrence S3 Gallery | My Sweet Memories</title>
 
 <!-- Key list by GenerateGalleryPathList Lambda - [[ -->
+<script src="./../config/last-modified-at.json"></script>
 <script src="./../config/video-key-list.json"></script>
 <script src="./../config/photo-key-list.json"></script>
 <!-- ]] -->
 
 <script src="./../common/js/jquery-3.6.0.min.js"></script>
 <script>
-	var isDebug = true;
+	var isDebug = false;
 	if (isDebug) {
 		console.log("Total video key in S3 bucket: " + videoS3Keylist.file_list.length);
 		console.log("Total photo key in S3 bucket: " + photoS3Keylist.file_list.length);
 	}
+	
+	const currentUpdateDate = new Date();
+	let currentUpdateDateTime = currentUpdateDate.getTime();
+	var numLastModifiedAtMilliseconds = Number(lastModifiedAtMilliseconds);
+	
+	if (isDebug) {
+		console.log("Last server side updated time: " + numLastModifiedAtMilliseconds);
+	}
+	
+	const keyLastUpdatedPageAt = "LastUpdatedPageAt";
+	if (typeof (Storage) !== "undefined") {
+		if (null == sessionStorage.getItem(keyLastUpdatedPageAt)) {
+
+			if (null != sessionStorage.getItem("videoTrees")) {
+				sessionStorage.removeItem("videoTrees");
+			}
+			if (null != sessionStorage.getItem("photoTrees")) {
+				sessionStorage.removeItem("photoTrees");
+			}
+			sessionStorage.setItem(keyLastUpdatedPageAt, currentUpdateDateTime);
+		} else {
+			const previousUpdatePageDateTime = sessionStorage.getItem(keyLastUpdatedPageAt);
+			if (isDebug) {
+				console.log("Previous page updated time: " + previousUpdatePageDateTime);
+			}
+			if (previousUpdatePageDateTime < numLastModifiedAtMilliseconds) {
+
+				if (null != sessionStorage.getItem("videoTrees")) {
+					sessionStorage.removeItem("videoTrees");
+				}
+				if (null != sessionStorage.getItem("photoTrees")) {
+					sessionStorage.removeItem("photoTrees");
+				}
+				sessionStorage.setItem(keyLastUpdatedPageAt, currentUpdateDateTime);
+			}
+		}
+	}
+	
+	//sessionStorage.setItem("LastUpdatedAt", result);
 </script>
 </head>
 
@@ -190,7 +230,7 @@
 	<!-- 	<div id="divpoc"> -->
 
 	<!-- 		<!-- Simple images example -->
-	-->
+
 	<!-- 		<H2>Simple images example</H2> -->
 	<!-- 		<section id="photos-section" class="section"> -->
 	<!-- 			<div class="container"> -->
